@@ -13,7 +13,17 @@
 
 void init_blocks(void);
 
-struct pieza1_T{
+
+
+#define ANCHO 12
+#define ALTO 19
+
+
+
+
+const int gameboard[ALTO][ANCHO];
+
+const struct pieza1_T{
         
         int values[16];
         int size;
@@ -22,7 +32,7 @@ struct pieza1_T{
 
     
     
-struct pieza2_T{
+const struct pieza2_T{
         
         int values[4];
         int size;
@@ -30,7 +40,7 @@ struct pieza2_T{
     };
 
     
-struct pieza3_T{
+const struct pieza3_T{
         
         int values[9];
         int size;
@@ -38,15 +48,7 @@ struct pieza3_T{
     };
     
     
-struct pieza4_T{
-        
-        int values[9];
-        int size;
-        
-    };
-
-    
-struct pieza5_T{
+const struct pieza4_T{
         
         int values[9];
         int size;
@@ -54,7 +56,15 @@ struct pieza5_T{
     };
 
     
-struct pieza6_T{
+const struct pieza5_T{
+        
+        int values[9];
+        int size;
+        
+    };
+
+    
+const struct pieza6_T{
         
         int values[9];
         int size;
@@ -62,7 +72,7 @@ struct pieza6_T{
     };
   
     
-struct pieza7_T{
+const struct pieza7_T{
         
         int values[9];
         int size;
@@ -82,43 +92,43 @@ typedef struct {
 
 ARR_PIECES piezas[7];
 
-struct pieza1_T PIEZA_1={{
+const struct pieza1_T PIEZA_1={{
                         0,0,0,0,
                         1,1,1,1,
                         0,0,0,0,
                         0,0,0,0
                                 },4};
 
-struct pieza2_T PIEZA_2={{
+const struct pieza2_T PIEZA_2={{
                         2,2,
                         2,2
                             },2};
 
-struct pieza3_T PIEZA_3={{
+const struct pieza3_T PIEZA_3={{
                         0,0,0,
                         3,3,0,
                         0,3,3
                          },3};
 
-struct pieza4_T PIEZA_4={{
+const struct pieza4_T PIEZA_4={{
 			0,0,0,
 			0,4,4,
 			4,4,0},3};
 			
 
-struct pieza5_T PIEZA_5={{
+const struct pieza5_T PIEZA_5={{
                         0,5,0,
                         0,5,0,
                         5,5,0
                             },3};
 
-struct pieza6_T PIEZA_6={{
+const struct pieza6_T PIEZA_6={{
                         0,6,0,
                         0,6,0,
                         0,6,6
                              },3};
 
-struct pieza7_T PIEZA_7={{
+const struct pieza7_T PIEZA_7={{
                         0,0,0,
                         7,7,7,
                         0,7,0
