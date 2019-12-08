@@ -11,11 +11,23 @@
 #include "game.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
+typedef struct {
+    
+    int *values;
+    int size;
+    dcoord_t pos;
+    int rotacion;
+    
+}ARR_PIECES; 
+extern ARR_PIECES piezas[];
 
+int print_pieza(int n);
 void update_board(void);
 void inicializacion(void);
 int move (void);
+
 
 
 int move (void){
@@ -47,11 +59,11 @@ void update_board(void){
     int i,j;
     dcoord_t pos;
     
-    for(i=0;i<16;i++){
+    for(i=0;i<VNFil;i++){
         for(j=0;j<NCol;j++){
             pos.x=j;
             pos.y=i;
-            if(gameboard[i][j]){
+            if(gameboard[i+5][j]){
                 
                 disp_write(pos,D_ON);
                 
@@ -63,3 +75,24 @@ void update_board(void){
     }
 }
 
+int print_pieza(int n){
+	
+    int cont=1,i,j;
+    
+    for(i=0;i<piezas[n].size;i++){
+        for(j=0;j<piezas[n].size;j++){
+            
+            
+            
+                gameboard[i+piezas[n].pos.y][j+piezas[n].pos.x]=piezas[n].values[i*piezas[n].size+j];
+            
+            
+        }
+    }
+    
+             
+        
+        return cont;
+        
+}
+   

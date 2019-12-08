@@ -18,26 +18,12 @@ typedef struct {
 }ARR_PIECES; 
 
 
-extern int gameboard[NFil][NCol];
+extern int gameboard[VNFil][NCol];
 
 extern ARR_PIECES piezas[7];
 
 
-void print_pieza(int n){
-	
-	int i,j;
-	for(i=0;i<piezas[n].size;i++){
-		for(j=0;j<piezas[n].size;j++){
-		
-			gameboard[i+piezas[n].pos.y][piezas[n].pos.x+j] =piezas[n].values[i*piezas[n].size+j];
-			
-		}
-	}
 
-        
-        
-        
-}
 
 int gen_pieza(void){
     
@@ -233,7 +219,11 @@ void piece_down(int n){
         for(i=0;i<piezas[n].size;i++){
             for(j=0;j<piezas[n].size;j++){
                 
+                
+                    
+                
                 gameboard[py+i][j+px]=piezas[n].values[i*(piezas[n].size)+j];
+                
             }
         }
     }

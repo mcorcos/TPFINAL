@@ -16,9 +16,14 @@
 #define STRUCTS_H
 
 #define NCol 12
-#define NFil 19
+#define VNFil 20
+#define NFil 16
 
-extern int gameboard[NFil][NCol];
+
+
+
+
+extern int gameboard[VNFil][NCol];
 
 void init_blocks(void);
 

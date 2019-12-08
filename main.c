@@ -16,12 +16,15 @@
 #include    "game.h"
 #include    "disdrv.h"
 #include <unistd.h>
+#include "joydrv.h"
 
-int gameboard[NFil][NCol];
+
+int gameboard[VNFil][NCol];
+
 void update_board(void);
 void inicializacion(void);
 int move (void);
-void print_pieza(int n);
+int print_pieza(int n);
 void printboard (void);
 
 int main (void){
@@ -36,18 +39,20 @@ int main (void){
     
     init_blocks();
     inicializacion();
-    int n;
+    
     disp_update();
     
-    while(1){
+    do{
         
+        int n;
         n=gen_pieza();
         printf("pieza numero:%d\n",n);
         int cont;
         cont=1;
-        print_pieza(n);
-        update_board();
         
+        cont=print_pieza(n);
+        update_board();
+        disp_update();
         
         while(cont){
             int get_move;
@@ -86,7 +91,11 @@ int main (void){
             usleep(1000000);
     }
         clean_struct(n);
-}
+
+    }while(joy_get_switch() == J_NOPRESS);
+
+	
+
 }  
     
   
