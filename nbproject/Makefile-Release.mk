@@ -37,9 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/extras.o \
 	${OBJECTDIR}/game.o \
-	${OBJECTDIR}/game.o \
 	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/structs.o \
 	${OBJECTDIR}/structs.o
 
 
@@ -77,10 +75,10 @@ ${OBJECTDIR}/game.o: game.c
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/game.o game.c
 
-${OBJECTDIR}/game.o: game.h
+${OBJECTDIR}/game.h.gch: game.h
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/game.o game.h
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o "$@" game.h
 
 ${OBJECTDIR}/main.o: main.c
 	${MKDIR} -p ${OBJECTDIR}
@@ -92,10 +90,10 @@ ${OBJECTDIR}/structs.o: structs.c
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/structs.o structs.c
 
-${OBJECTDIR}/structs.o: structs.h
+${OBJECTDIR}/structs.h.gch: structs.h
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/structs.o structs.h
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o "$@" structs.h
 
 # Subprojects
 .build-subprojects:

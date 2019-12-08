@@ -4,9 +4,8 @@
  * and open the template in the editor.
  */
 
-joy_init();										//inicializa el joystick
-	disp_init();									//inicializa el display
-	disp_clear();									//limpia todo el display
+										//inicializa el joystick
+										//limpia todo el display
 	dcoord_t pos = {7, 0};	//pos es la posición actual, empieza en el centro de la matriz
 	dcoord_t npos = pos;							//npos es la próxima posición
 	jcoord_t coord = {0,0};							//coordenadas medidas del joystick

@@ -4,7 +4,9 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>disdrv.h</itemPath>
       <itemPath>game.h</itemPath>
+      <itemPath>joydrv.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -41,11 +43,15 @@
       </toolsSet>
       <compileType>
       </compileType>
+      <item path="disdrv.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="extras.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="game.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="game.h" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="joydrv.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -74,11 +80,15 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="disdrv.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="extras.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="game.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="game.h" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="joydrv.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>

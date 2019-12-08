@@ -6,7 +6,6 @@
 
 int move (void){
     
-    joy_init();
     jcoord_t coord={0,0}
     joy_update();
     coord=joy_get_coord();
@@ -19,4 +18,10 @@ int move (void){
     }
     
     return get_move;
+}
+
+void inicializacion (void){
+    joy_init();
+    disp_init();
+    disp_clear();
 }

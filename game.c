@@ -1,8 +1,20 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <game.h>
+#include "disdrv.h"
+#include "joydrv.h"
+
+
+
+
+
+
 void game_update(int gen_pieza);
-int down_pieze(int piezano);
+int down_piece(int piezano);
 int gen_pieza(void);
 void clean_struct (int gen_pieza);
-void cheq_right (int gen_pieza);
+void check_right (int gen_pieza);
+void check_down (int gen_pieza);
 void check_board(void);
 void descend_board(int lastf);
 int check_piso(int n);
@@ -28,11 +40,11 @@ int gen_pieza(void){
 
 int down_pieze(int piezano){
 
-    int i,size,get_move;
+    int i,size,stay,get_move;
     ARR_PIECES *pPieza=piezas[gen_pieza];
     size=pPieza->size;
     get_move=move();
-    if(!cheq_down){
+    if(!check_down){
         pPieza->pos.y++;
     }
     else{
@@ -41,8 +53,9 @@ int down_pieze(int piezano){
     }
     
     if (get_move>0){       
-        if(!cheq_right){
+        if(!check_right){
         pPieza->pos.x++;
+        
         }
         else{
             stay=1;
@@ -50,7 +63,7 @@ int down_pieze(int piezano){
     }    
     
     if (get_move<0){
-        if(!cheq_left){
+        if(!check_left){
         pPieza->pos.x--;
         }
         else{
@@ -64,13 +77,14 @@ int down_pieze(int piezano){
 // game_board[NFil][NCol]
 void game_update(int gen_pieza){
     if(down_piece()){
-        int i,x,y,size,rot,*pValues;
+        int i,j,k,x,y,size,rot,*pValues;
         ARR_PIECES *pPieza=piezas[gen_pieza];
         size=pPieza->size;
         x=pPieza.pos.x;
         y=pPieza.pos.y;
         rot=pPieza.rotacion;
-        *pValues=pPieza.values
+        pValues= pPieza->values;
+/*
         switch(rot){
             case 1: order_values(gen_pieza,1);
             break;
@@ -79,10 +93,11 @@ void game_update(int gen_pieza){
             case 3: order_values(gen_pieza,3);
             break;
         }
+*/
         for(i=x,k=0;i<(size+x);i++){
             for(j=y;j<(size+y);j++){
                 if(pValues[k++]){
-                    game_board[i][j]=1;
+                    gameboard[i][j]=1;
                 }
             }
         }
@@ -98,7 +113,9 @@ void clean_struct (int gen_pieza){
     pPieza.pos.x=7;
     pPieza.pos.y=0;
     pPieza.rotacion=0;
+/*
     order_values(gen_pieza,0);
+*/
     
 }
 
@@ -156,14 +173,14 @@ void descend_board(int lastf){
     
 }
 
-int check_piso(int n){     //argumento :numero de pieza  ______deuelvi 1 si me puedo mover ,0 si no
+int check_down (int gen_pieza){     //argumento :numero de pieza  ______deuelvi 1 si me puedo mover ,0 si no
     
-    int suma=0,flag=0,i;
+    int suma=0,flag=0,i,lastline;
     if(lastline > NFil){
         
-        for(i=0;i<piezas[n].size;i++){
+        for(i=0;i<piezas[gen_pieza].size;i++){
 
-            suma+=((gameboard[lastline][i+(piezas[n].pos.x)]) && (gameboard[lastline-1][i+(piezas[n].pos.x)]));
+            suma+=((gameboard[lastline][i+(piezas[gen_pieza].pos.x)]) && (gameboard[lastline-1][i+(piezas[gen_pieza].pos.x)]));
         }
         
 
@@ -172,9 +189,9 @@ int check_piso(int n){     //argumento :numero de pieza  ______deuelvi 1 si me p
         
         int excess=lastline-NFil-1;
         
-        for(i=0;i<piezas[n].size;i++){
+        for(i=0;i<piezas[gen_pieza].size;i++){
 
-            suma+=gameboard[lastline-excess][i+(piezas[n].pos.x))] ;
+            suma+=gameboard[lastline-excess][i+(piezas[gen_pieza].pos.x)] ;
         }
         
     }
@@ -257,8 +274,8 @@ void piece_left(int n){
         }
     }
 }
-void cheq_right (int gen_pieza){
-    int x=piezas[gen_pieza].pos.x,y=piezas[gen_pieza].pos.y,size=piezas[gen_piezas].size,conta,loop;
+void check_right (int gen_pieza){
+    int i,x=piezas[gen_pieza].pos.x,y=piezas[gen_pieza].pos.y,size=piezas[gen_pieza].size,conta,loop;
     
     if(x==NCol){
         return 1;
@@ -267,7 +284,7 @@ void cheq_right (int gen_pieza){
     if(x<NCol-size){
 
         for(i=0,conta=0;i<size;i++,y++){
-            if(!(game_board[y][NCol] && game_board[y][NCol-1])){
+            if(!(gameboard[y][NCol] && gameboard[y][NCol-1])){
                 conta++;
             }
         }
@@ -279,7 +296,7 @@ void cheq_right (int gen_pieza){
         x+=size;
         while(loop){
             for(i=1,conta=0;i<size;i++,y++){
-                if(!(game_board[y][x] && game_board[y][x-1])){
+                if(!(gameboard[y][x] && gameboard[y][x-1])){
                     conta++;
                 }   
             }
@@ -296,8 +313,8 @@ void cheq_right (int gen_pieza){
     }
 }
 
-void cheq_left (int gen_pieza){
-    int x=piezas[gen_pieza].pos.x,y=piezas[gen_pieza].pos.y,size=piezas[gen_piezas].size,conta,loop;
+void check_left (int gen_pieza){
+    int i,x=piezas[gen_pieza].pos.x,y=piezas[gen_pieza].pos.y,size=piezas[gen_pieza].size,conta,loop;
     
     if(x==0){
         return 1;
@@ -306,7 +323,7 @@ void cheq_left (int gen_pieza){
     if((x-size)<=0){
 
         for(i=0,conta=0;i<size;i++,y++){
-            if(game_board[y][0] && game_board[y][1]){
+            if(gameboard[y][0] && gameboard[y][1]){
                 
             }
         }
@@ -318,7 +335,7 @@ void cheq_left (int gen_pieza){
         x-=size;
         while(loop){
             for(i=1,conta=0;i<size;i++,y++){
-                if(!(game_board[y][x] && game_board[y][x+1])){
+                if(!(gameboard[y][x] && gameboard[y][x+1])){
                     conta++;
                 }   
             }
