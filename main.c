@@ -20,7 +20,14 @@
 
 int main (void){
     
-  
+    clean_struct(0);
+    clean_struct(1);
+    clean_struct(2);
+    clean_struct(3);
+    clean_struct(4);
+    clean_struct(5);
+    clean_struct(6);
+    
     init_blocks();
     inicializacion();
     int n;
@@ -37,22 +44,23 @@ int main (void){
                  
                  
                  piece_right(n);
-                 update_piece(n);
+                 
             
             }
             else if(check_left(n) && move < 0){
                 
                 piece_left(n);
-                 update_piece(n);
+                 
                  
             }
             else{
-                 cont=check_down(n)
+                 cont=check_down(n);
                   piece_down;  
-                 update_piece;
+                 
                  
             }
             update_board();
+            clean_struct(n);
             uspleep(200000);
     }
 }

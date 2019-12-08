@@ -13,6 +13,7 @@
 
 #ifndef STRUCTS_H
 
+
 typedef struct {
     
     int *values;
@@ -29,4 +30,4 @@ void init_blocks(void);
 
 #define STRUCTS_H
 
-
+#endif

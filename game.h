@@ -12,7 +12,7 @@
  */
 
 #ifndef GAME
-
+#define GAME
 void game_update(int gen_pieza);
 int down_pieze(int piezano);
 int gen_pieza(void);
@@ -28,7 +28,7 @@ void piece_down(int n);
 
 
 
-#define GAME
+#endif
 
 
 

@@ -316,9 +316,7 @@ void check_right (int gen_pieza){
 void check_left (int gen_pieza){
     int i,x=piezas[gen_pieza].pos.x,y=piezas[gen_pieza].pos.y,size=piezas[gen_pieza].size,conta,loop;
     
-    if(x==0){
-        return 1;
-    }
+    
     
     if((x-size)<=0){
 
