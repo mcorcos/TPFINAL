@@ -28,10 +28,10 @@ int gen_pieza(void){
 
 int down_pieze(int piezano){
 
-    int i,size;
+    int i,size,get_move;
     ARR_PIECES *pPieza=piezas[gen_pieza];
     size=pPieza->size;
-    
+    get_move=move();
     if(!cheq_down){
         pPieza->pos.y++;
     }
@@ -40,7 +40,7 @@ int down_pieze(int piezano){
         return stay;
     }
     
-    if (move()>0 && ((pPieza->pos.x)+(size-1)>=(NCol-1)){       
+    if (get_move>0){       
         if(!cheq_right){
         pPieza->pos.x++;
         }
@@ -49,7 +49,7 @@ int down_pieze(int piezano){
         }
     }    
     
-    if (move()<0 && ((pPieza->pos.x)-(size-1)<=0)){
+    if (get_move<0){
         if(!cheq_left){
         pPieza->pos.x--;
         }
@@ -110,6 +110,10 @@ void cheq_right (int gen_pieza){
         
     
     }
+    if(conta){
+        return 0;
+    }
+    
 }
       
 void check_board(void){
