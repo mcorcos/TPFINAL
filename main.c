@@ -11,15 +11,13 @@
  * Created on December 4, 2019, 4:21 PM
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <pthread.h>
-#include "disdrv.h"
-#include "joydrv.h"
-#include "termlib.h"
-#include  <unistd.h>
-#
+
+
 int main (void ){
+    
+    
+    
+    
     
     
 }

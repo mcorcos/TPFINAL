@@ -1,8 +1,23 @@
+void game_update(int gen_pieza);
+int down_pieze(int piezano);
+int gen_pieza(void);
+void clean_struct (int gen_pieza);
+void cheq_right (int gen_pieza);
+void check_board(void);
+void descend_board(int lastf);
+int check_piso(int n);
+void piece_left(int n);
+void piece_right(int n);
+void piece_down(int n);
 
-int gen_pieza(){
+
+extern const int gameboard;
+#define NCol 12
+#define NFil 19
+
+int gen_pieza(void){
     
    
-    
     srand(time (NULL));
     
     int piezano= rand()%7 ;
@@ -10,12 +25,6 @@ int gen_pieza(){
     return piezano;
 
 }
-
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-
 
 int down_pieze(int piezano){
 
@@ -96,9 +105,164 @@ void clean_struct (int gen_pieza){
 void cheq_right (int gen_pieza){
     int x=piezas[gen_pieza].pos.x,y=piezas[gen_pieza].pos.y,size=piezas[gen_piezas].size;
     for(;x<(size+x);){
-        game_board[x+size]
+        
+        game_board[x+size];
+        
+    
     }
 }
       
+void check_board(void){
+    
+    int i,j,countf=0,score=0;
+    
+    
+    for(i=NFil-1;i>=0;i-- ){
+        
+        for(j=NCol-1;j>=0;j--){
+            
+            ++countf;
+            
+        }
+        
+        if(countf=NCol){
+            
+            ++score;
+            
+            for(j=0;j<NCol;j++){
+                
+                gameboard[i][j]=0;  //hacer titilar las barras y que se haga todas jntas
+            
+            }
+        
+        descend_board(i);    
+        }
+        countf=0;
+            
+        
+        
+    }
+       
+}
+
+void descend_board(int lastf){
+    
+    int i,j;
+    for (i=lastf;i>0;i--){
+        
+        for(j=0;j<NCol;j++){
+            
+            gameboard[i][j]=gameboard[i-1][j];
+            
+        }
+    }
+    
+    for(j=0;j<NCol;j++){
+        
+        gameboard[0][j]=0;
+    }
+   
+    
+}
+
+int check_piso(int n){     //argumento :numero de pieza  ______deuelvi 1 si me puedo mover ,0 si no
+    
+    int suma=0,flag=0,i;
+    if(lastline > NFil){
+        
+        for(i=0;i<piezas[n].size;i++){
+
+            suma+=((gameboard[lastline][i+(piezas[n].pos.x)]) && (gameboard[lastline-1][i+(piezas[n].pos.x)]));
+        }
+        
+
+    }
+    else{
+        
+        int excess=lastline-NFil-1;
+        
+        for(i=0;i<piezas[n].size;i++){
+
+            suma+=gameboard[lastline-excess][i+(piezas[n].pos.x))] ;
+        }
+        
+    }
+
+    if(!suma){
+            
+        flag=1;
+    }
+
+    return suma;
+}
+
+void piece_down(int n){
+    
+    if(check_piso(n)){
+        int i,j;
+        int py,px;
+        
+        py=++piezas[n].pos.y;
+        px=piezas[n].pos.x;
+        
+        for(j=0;j<piezas[n].size;j++){
+            
+            gameboard[py-1][j+px]=0;
+        }
+        
+        for(i=0;i<piezas[n].size;i++){
+            for(j=0;j<piezas[n].size;j++){
+                
+                gameboard[py+i][j+px]=piezas[n].values[i*(piezas[n].size)+j];
+            }
+        }
+    }
+}
 
 
+void piece_right(int n){
+    
+    if(check_right(n)){
+        int i,j;
+        int py,px;
+        
+        py=piezas[n].pos.y;
+        px=++piezas[n].pos.x;
+        
+        for(j=0;j<piezas[n].size;j++){
+            
+            gameboard[py+j][px-1]=0;
+        }
+        
+        for(i=0;i<piezas[n].size;i++){
+            for(j=0;j<piezas[n].size;j++){
+                
+                gameboard[py+i][j+px]=piezas[n].values[i*(piezas[n].size)+j];
+            }
+        }
+    }
+}
+
+
+void piece_left(int n){
+    
+    if(check_left(n)){
+        int i,j;
+        int py,px;
+        
+        py=piezas[n].pos.y;
+        px=--piezas[n].pos.x;
+        
+        for(j=0;j<piezas[n].size;j++){
+            
+            gameboard[py+j][px+piezas[n].size]=0;
+        }
+        
+        for(i=0;i<piezas[n].size;i++){
+            for(j=0;j<piezas[n].size;j++){
+                
+                gameboard[py+i][j+px]=piezas[n].values[i*(piezas[n].size)+j];
+            }
+        }
+    }
+}
