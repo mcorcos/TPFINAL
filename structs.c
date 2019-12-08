@@ -1,27 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/* 
- * File:   main2.c
- * Author: enrique
- *
- * Created on December 5, 2019, 12:40 AM
- */
-
-void init_blocks(void);
-
-
-
-#define ANCHO 12
-#define ALTO 19
+#include <disdrv.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "structs.h"
 
 
 
 
-const int gameboard[ALTO][ANCHO];
+ARR_PIECES piezas[7];
+const int gameboard[NFil][NCol];
 
 const struct pieza1_T{
         
@@ -81,16 +68,9 @@ const struct pieza7_T{
     
  
     
-typedef struct {
-    
-    int *values;
-    int size;
-    dcoord_t pos;
-    int rotacion;
-    
-}ARR_PIECES; 
 
-ARR_PIECES piezas[7];
+
+
 
 const struct pieza1_T PIEZA_1={{
                         0,0,0,0,

@@ -15,6 +15,9 @@
 
 int main (void ){
     
+    init_blocks();
+    inicializacion();
+    
     
     
     
