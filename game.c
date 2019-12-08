@@ -102,19 +102,6 @@ void clean_struct (int gen_pieza){
     
 }
 
-void cheq_right (int gen_pieza){
-    int x=piezas[gen_pieza].pos.x,y=piezas[gen_pieza].pos.y,size=piezas[gen_piezas].size;
-    for(;x<(size+x);){
-        
-        game_board[x+size];
-        
-    
-    }
-    if(conta){
-        return 0;
-    }
-    
-}
       
 void check_board(void){
     
@@ -270,3 +257,81 @@ void piece_left(int n){
         }
     }
 }
+void cheq_right (int gen_pieza){
+    int x=piezas[gen_pieza].pos.x,y=piezas[gen_pieza].pos.y,size=piezas[gen_piezas].size,conta,loop;
+    
+    if(x==NCol){
+        return 1;
+    }
+    
+    if(x<NCol-size){
+
+        for(i=0,conta=0;i<size;i++,y++){
+            if(!(game_board[y][NCol] && game_board[y][NCol-1])){
+                conta++;
+            }
+        }
+        if(conta==size){
+            loop=0;
+        }
+    }
+    else{
+        x+=size;
+        while(loop){
+            for(i=1,conta=0;i<size;i++,y++){
+                if(!(game_board[y][x] && game_board[y][x-1])){
+                    conta++;
+                }   
+            }
+            if(conta==size){
+                loop=0;
+            }
+        }
+    }
+    if(!loop){
+        return 0;
+    }
+    else{
+        return 1;
+    }
+}
+
+void cheq_left (int gen_pieza){
+    int x=piezas[gen_pieza].pos.x,y=piezas[gen_pieza].pos.y,size=piezas[gen_piezas].size,conta,loop;
+    
+    if(x==0){
+        return 1;
+    }
+    
+    if((x-size)<=0){
+
+        for(i=0,conta=0;i<size;i++,y++){
+            if(game_board[y][0] && game_board[y][1]){
+                
+            }
+        }
+        if(conta==size){
+            loop=0;
+        }
+    }
+    else{
+        x-=size;
+        while(loop){
+            for(i=1,conta=0;i<size;i++,y++){
+                if(!(game_board[y][x] && game_board[y][x+1])){
+                    conta++;
+                }   
+            }
+            if(conta==size){
+                loop=0;
+            }
+        }
+    }
+    if(!loop){
+        return 0;
+    }
+    else{
+        return 1;
+    }
+}
+
