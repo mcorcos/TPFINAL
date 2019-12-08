@@ -1,31 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <game.h>
+#include "structs.h"
+#include "game.h"
 #include "disdrv.h"
 #include "joydrv.h"
 
 
+extern const int gameboard[NFil][NCol];
+extern ARR_PIECES piezas[];
 
-
-
-
-void game_update(int gen_pieza);
-int down_piece(int piezano);
-int gen_pieza(void);
-void clean_struct (int gen_pieza);
-void check_right (int gen_pieza);
-void check_down (int gen_pieza);
-void check_board(void);
-void descend_board(int lastf);
-int check_piso(int n);
-void piece_left(int n);
-void piece_right(int n);
-void piece_down(int n);
-
-
-extern const int gameboard;
-#define NCol 12
-#define NFil 19
 
 int gen_pieza(void){
     
@@ -76,7 +59,7 @@ int down_pieze(int piezano){
 }
 // game_board[NFil][NCol]
 void game_update(int gen_pieza){
-    if(down_piece()){
+    if(down_pieze()){
         int i,j,k,x,y,size,rot,*pValues;
         ARR_PIECES *pPieza=piezas[gen_pieza];
         size=pPieza->size;
@@ -274,9 +257,11 @@ void piece_left(int n){
         }
     }
 }
-void check_right (int gen_pieza){
-    int i,x=piezas[gen_pieza].pos.x,y=piezas[gen_pieza].pos.y,size=piezas[gen_pieza].size,conta,loop;
-    
+int check_right (int gen_pieza){
+    int i,x,y,size,conta,loop;
+    x=piezas[gen_pieza].pos.x;
+    y=piezas[gen_pieza].pos.y;
+    size=piezas[gen_pieza].size;
     if(x==NCol){
         return 1;
     }
@@ -313,11 +298,11 @@ void check_right (int gen_pieza){
     }
 }
 
-void check_left (int gen_pieza){
-    int i,x=piezas[gen_pieza].pos.x,y=piezas[gen_pieza].pos.y,size=piezas[gen_pieza].size,conta,loop;
-    
-    
-    
+int check_left (int gen_pieza){
+    int i,x,y,size,conta,loop;
+    x=piezas[gen_pieza].pos.x;
+    y=piezas[gen_pieza].pos.y;
+    size=piezas[gen_pieza].size;
     if((x-size)<=0){
 
         for(i=0,conta=0;i<size;i++,y++){
