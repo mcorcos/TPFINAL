@@ -7,12 +7,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/enrique/NetBeansProjects/TPFINAL/game.c</file>
-            <file>file:/home/enrique/NetBeansProjects/TPFINAL/structs.h</file>
-            <file>file:/home/enrique/NetBeansProjects/TPFINAL/rpi.c</file>
-            <file>file:/home/enrique/NetBeansProjects/TPFINAL/main.c</file>
-            <file>file:/home/enrique/NetBeansProjects/TPFINAL/game.h</file>
-            <file>file:/home/enrique/NetBeansProjects/TPFINAL/structs.c</file>
+            <file>file:/home/manucorcos/NetBeansProjects/TPFINAL/game.c</file>
+            <file>file:/home/manucorcos/NetBeansProjects/TPFINAL/rpi.c</file>
+            <file>file:/home/manucorcos/NetBeansProjects/TPFINAL/structs.c</file>
+            <file>file:/home/manucorcos/NetBeansProjects/TPFINAL/main.c</file>
         </group>
     </open-files>
 </project-private>
