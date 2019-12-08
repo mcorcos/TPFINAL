@@ -62,19 +62,21 @@ int main (void){
             
             
             
-            if(check_right(n) && get_move> 0){
+            if( get_move> 0 && !check_right(n) ){
                  
                  
-                 piece_right(n);
-                 
+                piece_right(n);
+                printf("its moving,Well done sir\n");
             
             }
-            else if(check_left(n) && get_move< 0){
+/*
+            else if( get_move< 0 && check_left(n)){
                 
                 piece_left(n);
                  
                  
             }
+*/
             
             cont=check_down(n);
             
@@ -88,7 +90,7 @@ int main (void){
             disp_update();
             
             
-            usleep(1000000);
+            usleep(200000);
     }
         clean_struct(n);
 

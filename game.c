@@ -108,7 +108,7 @@ int gen_pieza(void){
 
 void clean_struct (int gen_pieza){
     
-    piezas[gen_pieza].pos.x=7;
+    piezas[gen_pieza].pos.x=2;
     piezas[gen_pieza].pos.y=0;
     piezas[gen_pieza].rotacion=0;
 /*
@@ -232,12 +232,12 @@ void piece_down(int n){
 
 void piece_right(int n){
     
-    if(check_right(n)){
+    if(!check_right(n)){
         int i,j;
         int py,px;
         
         py=piezas[n].pos.y;
-        px=++piezas[n].pos.x;
+        px=++(piezas[n].pos.x);
         
         for(j=0;j<piezas[n].size;j++){
             
@@ -278,48 +278,43 @@ void piece_left(int n){
 }
 int check_right (int gen_pieza){
     
-    int i,x,y,size,conta,loop;
+    int i,x,y,size,conta,move=1;
     x=piezas[gen_pieza].pos.x;
     y=piezas[gen_pieza].pos.y;
     size=piezas[gen_pieza].size;
+    conta=0;
     if(x==NCol-1){
         return 1;
     }
     
-    if(x<NCol-size){
+    if(x>=NCol-size){
 
-        for(i=0,conta=0;i<size;i++,y++){
-            if(!(gameboard[y][NCol] && gameboard[y][NCol-1])){
+        for(i=0;i<size;i++,y++){
+            if(!(gameboard[y][NCol-1] && gameboard[y][(NCol-1)-1])){
                 conta++;
             }
         }
         if(conta==size){
-            loop=0;
+            move=0;
         }
+        
     }
     else{
-        x+=size;
-        while(loop){
-            for(i=1,conta=0;i<size;i++,y++){
-                if(!(gameboard[y][x] && gameboard[y][x-1])){
-                    conta++;
-                }   
-            }
-            if(conta==size){
-                loop=0;
-            }
+        x=x+size;
+        for(i=0;i<size;i++,y++){
+            if(!(gameboard[y][x] && gameboard[y][x-1])){
+                conta++;
+            }   
+        }
+        if(conta==size){
+            move=0;
         }
     }
-    if(!loop){
-        return 0;
-    }
-    else{
-        return 1;
-    }
+    return move;
 }
 
 int check_left (int gen_pieza){
-    int i,x,y,size,conta,loop;
+    int i,x,y,size,conta,loop=1;
     x=piezas[gen_pieza].pos.x;
     y=piezas[gen_pieza].pos.y;
     size=piezas[gen_pieza].size;

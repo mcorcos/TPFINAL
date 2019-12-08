@@ -15,7 +15,9 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>../../Downloads/libs students/disdrv.o</itemPath>
       <itemPath>game.c</itemPath>
+      <itemPath>../../Downloads/libs students/joydrv.o</itemPath>
       <itemPath>main.c</itemPath>
       <itemPath>rpi.c</itemPath>
       <itemPath>structs.c</itemPath>
@@ -42,6 +44,16 @@
       </toolsSet>
       <compileType>
       </compileType>
+      <item path="../../Downloads/libs students/disdrv.o"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../../Downloads/libs students/joydrv.o"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="disdrv.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="game.c" ex="false" tool="0" flavor2="0">
@@ -77,6 +89,16 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="../../Downloads/libs students/disdrv.o"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../../Downloads/libs students/joydrv.o"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="disdrv.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="game.c" ex="false" tool="0" flavor2="0">
