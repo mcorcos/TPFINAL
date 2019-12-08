@@ -13,21 +13,17 @@
 
 #ifndef STRUCTS_H
 
-
-typedef struct {
-    
-    int *values;
-    int size;
-    dcoord_t pos;
-    int rotacion;
-    
-}ARR_PIECES; 
-
-void init_blocks(void);
+#define STRUCTS_H
 
 #define NCol 12
 #define NFil 19
 
-#define STRUCTS_H
+extern int gameboard[NFil][NCol];
+
+void init_blocks(void);
+
+
+
+
 
 #endif

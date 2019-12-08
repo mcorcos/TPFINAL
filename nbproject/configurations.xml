@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>disdrv.h</itemPath>
       <itemPath>game.h</itemPath>
       <itemPath>structs.h</itemPath>
     </logicalFolder>
@@ -41,6 +42,8 @@
       </toolsSet>
       <compileType>
       </compileType>
+      <item path="disdrv.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="game.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="game.h" ex="false" tool="0" flavor2="0">
@@ -74,6 +77,8 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="disdrv.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="game.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="game.h" ex="false" tool="0" flavor2="0">

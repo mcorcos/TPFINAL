@@ -17,6 +17,12 @@
 #include    "disdrv.h"
 #include <unistd.h>
 
+int gameboard[NFil][NCol];
+void update_board(void);
+void inicializacion(void);
+int move (void);
+void print_pieza(int n);
+void printboard (void);
 
 int main (void){
     
@@ -31,41 +37,57 @@ int main (void){
     init_blocks();
     inicializacion();
     int n;
+    disp_update();
     
     while(1){
         
         n=gen_pieza();
+        printf("pieza numero:%d\n",n);
+        int cont;
+        cont=1;
+        print_pieza(n);
+        update_board();
         
-        int cont=1;
         
         while(cont){
-                
-            if(check_right(n) && move()> 0){
+            int get_move;
+            get_move=move();
+            
+            
+            
+            
+            
+            if(check_right(n) && get_move> 0){
                  
                  
                  piece_right(n);
                  
             
             }
-            else if(check_left(n) && move < 0){
+            else if(check_left(n) && get_move< 0){
                 
                 piece_left(n);
                  
                  
             }
-            else{
-                 cont=check_down(n);
-                  piece_down;  
+            
+            cont=check_down(n);
+            
+            if(cont){
+            
+                piece_down(n);  
+            }  
                  
-                 
-            }
+            
             update_board();
-            clean_struct(n);
-            uspleep(200000);
+            disp_update();
+            
+            
+            usleep(1000000);
     }
+        clean_struct(n);
 }
 }  
     
-    
-    
+  
    

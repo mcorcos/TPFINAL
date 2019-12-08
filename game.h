@@ -13,17 +13,19 @@
 
 #ifndef GAME
 #define GAME
+int check_left (int gen_pieza);
 void game_update(int gen_pieza);
 int down_pieze(int piezano);
 int gen_pieza(void);
 void clean_struct (int gen_pieza);
-void cheq_right (int gen_pieza);
+int check_right(int gen_pieza);
 void check_board(void);
 void descend_board(int lastf);
-int check_piso(int n);
+int check_down(int n);
 void piece_left(int n);
 void piece_right(int n);
 void piece_down(int n);
+
 
 
 

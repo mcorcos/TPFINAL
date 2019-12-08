@@ -8,11 +8,19 @@
 #include "structs.h"
 #include "joydrv.h"
 #include "disdrv.h"
-void update_board(int n);
+#include "game.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+
+void update_board(void);
+void inicializacion(void);
+int move (void);
+
 
 int move (void){
     
-    jcoord_t coord={0,0}
+    jcoord_t coord={0,0};
     joy_update();
     int get_move;
     
@@ -34,18 +42,22 @@ void inicializacion (void){
     disp_clear();
 }
 
-void update_board(int n){
+void update_board(void){
     
     int i,j;
-    for(i=0;i<NFil;i++){
+    dcoord_t pos;
+    
+    for(i=0;i<16;i++){
         for(j=0;j<NCol;j++){
-            
+            pos.x=j;
+            pos.y=i;
             if(gameboard[i][j]){
-                disp_write(piezas[n].pos,D_ON);
+                
+                disp_write(pos,D_ON);
                 
             }
             else{
-                disp_write(piezas[n].pos,D_OFF);
+                disp_write(pos,D_OFF);
             }
         }
     }

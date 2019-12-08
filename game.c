@@ -4,16 +4,45 @@
 #include "game.h"
 #include "disdrv.h"
 #include "joydrv.h"
+#include <time.h>
+void print_pieza(int n);
 
 
-extern const int gameboard[NFil][NCol];
-extern ARR_PIECES piezas[];
+typedef struct {
+    
+    int *values;
+    int size;
+    dcoord_t pos;
+    int rotacion;
+    
+}ARR_PIECES; 
 
+
+extern int gameboard[NFil][NCol];
+
+extern ARR_PIECES piezas[7];
+
+
+void print_pieza(int n){
+	
+	int i,j;
+	for(i=0;i<piezas[n].size;i++){
+		for(j=0;j<piezas[n].size;j++){
+		
+			gameboard[i+piezas[n].pos.y][piezas[n].pos.x+j] =piezas[n].values[i*piezas[n].size+j];
+			
+		}
+	}
+
+        
+        
+        
+}
 
 int gen_pieza(void){
     
    
-    srand(time (NULL));
+    srand(time(NULL));
     
     int piezano= rand()%7 ;
  
@@ -21,10 +50,10 @@ int gen_pieza(void){
 
 }
 
-int down_pieze(int piezano){
+/*int down_pieze(int piezano){
 
     int i,size,stay,get_move;
-    ARR_PIECES *pPieza=piezas[gen_pieza];
+    ARR_PIECES *pPieza=piezas[piezano];
     size=pPieza->size;
     get_move=move();
     if(!check_down){
@@ -56,10 +85,10 @@ int down_pieze(int piezano){
     }  
     
     return stay;   
-}
+}*/
 // game_board[NFil][NCol]
-void game_update(int gen_pieza){
-    if(down_pieze()){
+/*void game_update(int gen_pieza){
+    if(piece_down()){
         int i,j,k,x,y,size,rot,*pValues;
         ARR_PIECES *pPieza=piezas[gen_pieza];
         size=pPieza->size;
@@ -67,7 +96,7 @@ void game_update(int gen_pieza){
         y=pPieza.pos.y;
         rot=pPieza.rotacion;
         pValues= pPieza->values;
-/*
+
         switch(rot){
             case 1: order_values(gen_pieza,1);
             break;
@@ -76,7 +105,7 @@ void game_update(int gen_pieza){
             case 3: order_values(gen_pieza,3);
             break;
         }
-*/
+
         for(i=x,k=0;i<(size+x);i++){
             for(j=y;j<(size+y);j++){
                 if(pValues[k++]){
@@ -89,13 +118,13 @@ void game_update(int gen_pieza){
     clean_struct(gen_pieza);
     
 }
+*/
 
 void clean_struct (int gen_pieza){
-    int *pValues;
-    ARR_PIECES *pPieza=piezas[gen_pieza];
-    pPieza.pos.x=7;
-    pPieza.pos.y=0;
-    pPieza.rotacion=0;
+    
+    piezas[gen_pieza].pos.x=7;
+    piezas[gen_pieza].pos.y=0;
+    piezas[gen_pieza].rotacion=0;
 /*
     order_values(gen_pieza,0);
 */
@@ -116,7 +145,7 @@ void check_board(void){
             
         }
         
-        if(countf=NCol){
+        if(countf==NCol){
             
             ++score;
             
@@ -158,8 +187,8 @@ void descend_board(int lastf){
 
 int check_down (int gen_pieza){     //argumento :numero de pieza  ______deuelvi 1 si me puedo mover ,0 si no
     
-    int suma=0,flag=0,i,lastline;
-    if(lastline > NFil){
+    int suma=0,flag=0,i,lastline=(piezas[gen_pieza].size)+(piezas[gen_pieza].pos.y);
+    if(lastline < NFil){
         
         for(i=0;i<piezas[gen_pieza].size;i++){
 
@@ -184,12 +213,12 @@ int check_down (int gen_pieza){     //argumento :numero de pieza  ______deuelvi 
         flag=1;
     }
 
-    return suma;
+    return flag;
 }
 
 void piece_down(int n){
     
-    if(check_piso(n)){
+    if(check_down(n)){
         int i,j;
         int py,px;
         
@@ -258,11 +287,12 @@ void piece_left(int n){
     }
 }
 int check_right (int gen_pieza){
+    
     int i,x,y,size,conta,loop;
     x=piezas[gen_pieza].pos.x;
     y=piezas[gen_pieza].pos.y;
     size=piezas[gen_pieza].size;
-    if(x==NCol){
+    if(x==NCol-1){
         return 1;
     }
     
@@ -334,4 +364,3 @@ int check_left (int gen_pieza){
         return 1;
     }
 }
-
