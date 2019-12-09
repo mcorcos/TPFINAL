@@ -30,6 +30,7 @@ void printboard (void);
 
 int main (void){
     
+    create_floor();
     clean_struct(0);
     clean_struct(1);
     clean_struct(2);

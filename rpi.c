@@ -74,7 +74,7 @@ void update_board(void){
         for(j=0;j<NCol;j++){
             pos.x=j;
             pos.y=i;
-            if(gameboard[i+4][j]){
+            if(gameboard[i+2][j]){
                 
                 disp_write(pos,D_ON);
                 
