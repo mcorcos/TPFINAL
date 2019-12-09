@@ -324,9 +324,11 @@ int check_right (int gen_pieza){
     size=piezas[gen_pieza].size;
     if(x>=NCol-size){
         for(i=0;i<size;i++){
-            for(j=0;j<size-1;j++){
+            for(j=0;j<size;j++){
                 if(piezas[gen_pieza].values[i*size+j]){
-                    found_piece= xor(gameboard[i+y][j+x+1],piezas[gen_pieza].values[i*size+j+1]);
+                    if((NCol-1)== (j+x+1)){
+                        found_piece=1;
+                    }
                 }
             }        
         }
