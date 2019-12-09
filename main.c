@@ -54,46 +54,47 @@ int main (void){
         update_board();
         disp_update();
         
-        while(cont){
+        while(cont && (joy_get_switch() == J_NOPRESS)){
             int get_move;
             get_move=move();
             
             
             
+            if(cont){
             
+                piece_down(n);  
+            }  
             
             if( get_move> 0 && !check_right(n) ){
                  
                  
                 piece_right(n);
-                printf("its moving,Well done sir\n");
+                
             
             }
-/*
-            else if( get_move< 0 && check_left(n)){
+
+            if( get_move< 0 && !check_left(n)){
                 
                 piece_left(n);
-                 
+                 printf("its moving,Well done sir\n");
                  
             }
-*/
+
             
             cont=check_down(n);
             
-            if(cont){
             
-                piece_down(n);  
-            }  
                  
             
             update_board();
             disp_update();
             
             
-            usleep(200000);
+            usleep(100000);
     }
         clean_struct(n);
-
+        
+        
     }while(joy_get_switch() == J_NOPRESS);
 
 	

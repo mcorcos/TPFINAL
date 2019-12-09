@@ -36,79 +36,11 @@ int gen_pieza(void){
 
 }
 
-/*int down_pieze(int piezano){
 
-    int i,size,stay,get_move;
-    ARR_PIECES *pPieza=piezas[piezano];
-    size=pPieza->size;
-    get_move=move();
-    if(!check_down){
-        pPieza->pos.y++;
-    }
-    else{
-        stay=1;
-        return stay;
-    }
-    
-    if (get_move>0){       
-        if(!check_right){
-        pPieza->pos.x++;
-        
-        }
-        else{
-            stay=1;
-        }
-    }    
-    
-    if (get_move<0){
-        if(!check_left){
-        pPieza->pos.x--;
-        }
-        else{
-            stay=1;
-        }
-        
-    }  
-    
-    return stay;   
-}*/
-// game_board[NFil][NCol]
-/*void game_update(int gen_pieza){
-    if(piece_down()){
-        int i,j,k,x,y,size,rot,*pValues;
-        ARR_PIECES *pPieza=piezas[gen_pieza];
-        size=pPieza->size;
-        x=pPieza.pos.x;
-        y=pPieza.pos.y;
-        rot=pPieza.rotacion;
-        pValues= pPieza->values;
-
-        switch(rot){
-            case 1: order_values(gen_pieza,1);
-            break;
-            case 2: order_values(gen_pieza,2);
-            break;
-            case 3: order_values(gen_pieza,3);
-            break;
-        }
-
-        for(i=x,k=0;i<(size+x);i++){
-            for(j=y;j<(size+y);j++){
-                if(pValues[k++]){
-                    gameboard[i][j]=1;
-                }
-            }
-        }
-        
-    }
-    clean_struct(gen_pieza);
-    
-}
-*/
 
 void clean_struct (int gen_pieza){
     
-    piezas[gen_pieza].pos.x=2;
+    piezas[gen_pieza].pos.x=5;
     piezas[gen_pieza].pos.y=0;
     piezas[gen_pieza].rotacion=0;
 /*
@@ -174,18 +106,18 @@ void descend_board(int lastf){
 int check_down (int gen_pieza){     //argumento :numero de pieza  ______deuelvi 1 si me puedo mover ,0 si no
     
     int suma=0,flag=0,i,lastline=(piezas[gen_pieza].size)+(piezas[gen_pieza].pos.y);
-    if(lastline < NFil){
+    if(lastline < VNFil){
         
         for(i=0;i<piezas[gen_pieza].size;i++){
 
-            suma+=((gameboard[lastline][i+(piezas[gen_pieza].pos.x)]) && (gameboard[lastline-1][i+(piezas[gen_pieza].pos.x)]));
+            suma+=gameboard[lastline][i+(piezas[gen_pieza].pos.x)];
         }
         
 
     }
     else{
         
-        int excess=lastline-NFil-1;
+        int excess=lastline-VNFil-1;
         
         for(i=0;i<piezas[gen_pieza].size;i++){
 
@@ -256,7 +188,7 @@ void piece_right(int n){
 
 void piece_left(int n){
     
-    if(check_left(n)){
+    if(!check_left(n)){
         int i,j;
         int py,px;
         
@@ -314,15 +246,18 @@ int check_right (int gen_pieza){
 }
 
 int check_left (int gen_pieza){
+    
     int i,x,y,size,conta,loop=1;
     x=piezas[gen_pieza].pos.x;
     y=piezas[gen_pieza].pos.y;
     size=piezas[gen_pieza].size;
-    if((x-size)<=0){
+    
+    if(x<=0){
 
         for(i=0,conta=0;i<size;i++,y++){
-            if(gameboard[y][0] && gameboard[y][1]){
+            if(!(gameboard[y][0] && gameboard[y][1])){
                 
+                conta++;
             }
         }
         if(conta==size){
@@ -330,22 +265,17 @@ int check_left (int gen_pieza){
         }
     }
     else{
-        x-=size;
-        while(loop){
-            for(i=1,conta=0;i<size;i++,y++){
-                if(!(gameboard[y][x] && gameboard[y][x+1])){
-                    conta++;
-                }   
-            }
-            if(conta==size){
-                loop=0;
-            }
+        
+        for(i=0,conta=0;i<size;i++,y++){
+            
+            if(!(gameboard[y][x] && gameboard[y][x-1])){
+                conta++;
+            }   
         }
+        if(conta==size){
+            loop=0;
+        }
+        
     }
-    if(!loop){
-        return 0;
-    }
-    else{
-        return 1;
-    }
+    return loop;
 }

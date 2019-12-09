@@ -34,16 +34,17 @@ int move (void){
     
     jcoord_t coord={0,0};
     joy_update();
-    int get_move;
+    int get_move=0;
     
     coord=joy_get_coord();
     
     if(coord.x > THRESHOLD){
         get_move=1;
     }
-    if(coord.x < THRESHOLD){
+    if(coord.x < (-1)*THRESHOLD){
         get_move=-1;
     }
+    
     
     return get_move;
 }
@@ -52,6 +53,16 @@ void inicializacion (void){
     joy_init();
     disp_init();
     disp_clear();
+    int i;
+    for(i=0;i<NFil;i++){
+        
+        static dcoord_t pos;
+        pos.y=i;
+        pos.x=NCol;
+        
+        disp_write(pos,D_ON);
+        
+    }
 }
 
 void update_board(void){
@@ -59,11 +70,11 @@ void update_board(void){
     int i,j;
     dcoord_t pos;
     
-    for(i=0;i<VNFil;i++){
+    for(i=0;i<NFil;i++){
         for(j=0;j<NCol;j++){
             pos.x=j;
             pos.y=i;
-            if(gameboard[i+5][j]){
+            if(gameboard[i+4][j]){
                 
                 disp_write(pos,D_ON);
                 
