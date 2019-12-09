@@ -23,7 +23,7 @@ typedef struct {
 }ARR_PIECES; 
 extern ARR_PIECES piezas[];
 
-int print_pieza(int n);
+
 void update_board(void);
 void inicializacion(void);
 int move (void);
@@ -86,24 +86,5 @@ void update_board(void){
     }
 }
 
-int print_pieza(int n){
-	
-    int cont=1,i,j;
-    
-    for(i=0;i<piezas[n].size;i++){
-        for(j=0;j<piezas[n].size;j++){
-            
-            
-            
-                gameboard[i+piezas[n].pos.y][j+piezas[n].pos.x]=piezas[n].values[i*piezas[n].size+j];
-            
-            
-        }
-    }
-    
-             
-        
-        return cont;
-        
-}
+
    

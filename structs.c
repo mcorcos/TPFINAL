@@ -159,3 +159,12 @@ void init_blocks(void){
           
          
 }
+
+void create_floor(void){
+    int i;
+    for(i=0;i<NCol;i++){
+        
+        gameboard[VNFil][i]=-1;
+        
+    }
+}

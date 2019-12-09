@@ -5,7 +5,7 @@
 #include "disdrv.h"
 #include "joydrv.h"
 #include <time.h>
-void print_pieza(int n);
+int print_pieza(int n);
 
 
 typedef struct {
@@ -108,7 +108,7 @@ int check_down (int n){     //argumento :numero de pieza  ______deuelvi 1 si me 
     int i,j,x=piezas[n].pos.x,y=(piezas[n].pos.y)+1,size=piezas[n].size,suma=0;
     
     
-    if (y<VNFil){
+    if (y<(VNFil+1)){
         
     
     for(i=0;i<size;i++){
@@ -394,4 +394,25 @@ int check_left (int gen_pieza){
         
     }
     return loop;
+}
+
+int print_pieza(int n){
+	
+    int cont=1,i,j;
+    
+    for(i=0;i<piezas[n].size;i++){
+        for(j=0;j<piezas[n].size;j++){
+            
+            
+            
+                gameboard[i+piezas[n].pos.y][j+piezas[n].pos.x]=piezas[n].values[i*piezas[n].size+j];
+            
+            
+        }
+    }
+    
+             
+        
+        return cont;
+        
 }

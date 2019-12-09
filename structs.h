@@ -21,9 +21,9 @@
 
 
 
+void create_floor(void);
 
-
-extern int gameboard[VNFil][NCol];
+extern int gameboard[][NCol];
 
 void init_blocks(void);
 

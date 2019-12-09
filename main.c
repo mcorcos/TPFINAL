@@ -19,7 +19,8 @@
 #include "joydrv.h"
 
 
-int gameboard[VNFil][NCol];
+int gameboard[VNFil+1][NCol];
+
 
 void update_board(void);
 void inicializacion(void);
