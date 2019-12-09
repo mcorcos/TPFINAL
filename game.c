@@ -103,14 +103,46 @@ void descend_board(int lastf){
     
 }
 
-int check_down (int gen_pieza){     //argumento :numero de pieza  ______deuelvi 1 si me puedo mover ,0 si no
+int check_down (int n){     //argumento :numero de pieza  ______deuelvi 1 si me puedo mover ,0 si no
     
-    int suma=0,flag=0,i,lastline=(piezas[gen_pieza].size)+(piezas[gen_pieza].pos.y);
+    int i,j,x=piezas[n].pos.x,y=piezas[n].pos.y+1,size=piezas[n].size,suma=0;
+    
+    if (y<VNFil){
+        
+    
+    for(i=0;i<size;i++){
+        for(j=0;j<size;j++){
+            
+            if(piezas[n].values[i*size+j] && gameboard[y+i][j+x]){
+                
+                if(piezas[n].values[(i+1)*size+j] && gameboard[y+i][j+x]){
+                    suma++;
+                }
+                
+            }
+            else{
+                
+                suma++;
+            }
+            
+        }
+    }
+    }
+    
+    if(suma!=(size*size) ){
+        
+        suma=0;
+        
+        
+    }
+    
+    return suma;
+    /*int suma=0,flag=0,i,lastline=(piezas[n].size)+(piezas[n].pos.y);
     if(lastline < VNFil){
         
-        for(i=0;i<piezas[gen_pieza].size;i++){
+        for(i=0;i<piezas[n].size;i++){
 
-            suma+=gameboard[lastline][i+(piezas[gen_pieza].pos.x)];
+            suma+=gameboard[lastline][i+(piezas[n].pos.x)];
         }
         
 
@@ -119,9 +151,9 @@ int check_down (int gen_pieza){     //argumento :numero de pieza  ______deuelvi 
         
         int excess=lastline-VNFil-1;
         
-        for(i=0;i<piezas[gen_pieza].size;i++){
+        for(i=0;i<piezas[n].size;i++){
 
-            suma+=gameboard[lastline-excess][i+(piezas[gen_pieza].pos.x)] ;
+            suma+=gameboard[lastline-excess][i+(piezas[n].pos.x)] ;
         }
         
     }
@@ -131,7 +163,7 @@ int check_down (int gen_pieza){     //argumento :numero de pieza  ______deuelvi 
         flag=1;
     }
 
-    return flag;
+    return flag;*/
 }
 
 void piece_down(int n){
@@ -144,17 +176,22 @@ void piece_down(int n){
         px=piezas[n].pos.x;
         
         for(j=0;j<piezas[n].size;j++){
+           for(i=0;i<piezas[n].size;i++){
+                if(piezas[n].values[i*(piezas[n].size)+j]){
+                
+                   gameboard[py+i-1][j+px]=0;
+                }
+            } 
             
-            gameboard[py-1][j+px]=0;
         }
         
         for(i=0;i<piezas[n].size;i++){
             for(j=0;j<piezas[n].size;j++){
                 
-                
+                if(piezas[n].values[i*(piezas[n].size)+j]){
                     
-                
-                gameboard[py+i][j+px]=piezas[n].values[i*(piezas[n].size)+j];
+                    gameboard[py+i][j+px]=piezas[n].values[i*(piezas[n].size)+j];
+                }
                 
             }
         }
@@ -172,14 +209,24 @@ void piece_right(int n){
         px=++(piezas[n].pos.x);
         
         for(j=0;j<piezas[n].size;j++){
-            
-            gameboard[py+j][px-1]=0;
+            for(i=0;i<piezas[n].size;i++){
+                if(piezas[n].values[i*(piezas[n].size)+j]){
+                
+                    gameboard[py+i][px-1+j]=0;
+                }
+            } 
         }
         
         for(i=0;i<piezas[n].size;i++){
             for(j=0;j<piezas[n].size;j++){
                 
+                if(piezas[n].values[i*(piezas[n].size)+j] ){
+                    
+                
                 gameboard[py+i][j+px]=piezas[n].values[i*(piezas[n].size)+j];
+                
+                }
+                
             }
         }
     }
@@ -196,14 +243,23 @@ void piece_left(int n){
         px=--piezas[n].pos.x;
         
         for(j=0;j<piezas[n].size;j++){
+            for(i=0;i<piezas[n].size;i++){
+                if(piezas[n].values[i*(piezas[n].size)+j]){
+                
+                    gameboard[py+i][px+1+j]=0;
+                }
+            } 
             
-            gameboard[py+j][px+piezas[n].size]=0;
         }
         
         for(i=0;i<piezas[n].size;i++){
             for(j=0;j<piezas[n].size;j++){
                 
-                gameboard[py+i][j+px]=piezas[n].values[i*(piezas[n].size)+j];
+                if(piezas[n].values[i*(piezas[n].size)+j] ){
+                
+                    gameboard[py+i][j+px]=piezas[n].values[i*(piezas[n].size)+j];
+                }
+                
             }
         }
     }
