@@ -105,7 +105,8 @@ void descend_board(int lastf){
 
 int check_down (int n){     //argumento :numero de pieza  ______deuelvi 1 si me puedo mover ,0 si no
     
-    int i,j,x=piezas[n].pos.x,y=piezas[n].pos.y+1,size=piezas[n].size,suma=0;
+    int i,j,x=piezas[n].pos.x,y=(piezas[n].pos.y)+1,size=piezas[n].size,suma=0;
+    
     
     if (y<VNFil){
         
@@ -113,17 +114,29 @@ int check_down (int n){     //argumento :numero de pieza  ______deuelvi 1 si me 
     for(i=0;i<size;i++){
         for(j=0;j<size;j++){
             
-            if(piezas[n].values[i*size+j] && gameboard[y+i][j+x]){
+            
+            
                 
-                if(piezas[n].values[(i+1)*size+j] && gameboard[y+i][j+x]){
+            
+                if((piezas[n].values[i*size+j] && gameboard[y+i][j+x]) ){
+                
+                
+               
+                    if(piezas[n].values[(i+1)*size+j] == gameboard[y+i][j+x]){
+                    
+                        suma++;
+                    }
+
+                
+                }    
+                
+                else{
+
                     suma++;
+            
                 }
                 
-            }
-            else{
-                
-                suma++;
-            }
+            
             
         }
     }
@@ -171,6 +184,7 @@ void piece_down(int n){
     if(check_down(n)){
         int i,j;
         int py,px;
+        
         
         py=++piezas[n].pos.y;
         px=piezas[n].pos.x;
