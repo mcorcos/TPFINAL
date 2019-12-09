@@ -326,7 +326,7 @@ int check_right (int gen_pieza){
         for(i=0;i<size;i++){
             for(j=0;j<size;j++){
                 if(piezas[gen_pieza].values[i*size+j]){
-                    if((NCol-1)== (j+x+1)){
+                    if(NCol==j+x+1){
                         found_piece=1;
                     }
                 }
