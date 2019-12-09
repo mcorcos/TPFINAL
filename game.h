@@ -25,6 +25,7 @@ int check_down(int n);
 void piece_left(int n);
 void piece_right(int n);
 void piece_down(int n);
+int xor(int a,int b);
 
 
 

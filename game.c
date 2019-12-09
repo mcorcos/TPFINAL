@@ -278,6 +278,7 @@ void piece_left(int n){
         }
     }
 }
+/*
 int check_right (int gen_pieza){
     
     int i,x,y,size,conta,move=1;
@@ -314,7 +315,50 @@ int check_right (int gen_pieza){
     }
     return move;
 }
+*/
+int check_right (int gen_pieza){
+    
+    int x,y,size,i,j,found_piece=0;
+    x=piezas[gen_pieza].pos.x;
+    y=piezas[gen_pieza].pos.y;
+    size=piezas[gen_pieza].size;
+    if(x>=NCol-size){
+        for(i=0;i<size;i++){
+            for(j=0;j<size-1;j++){
+                if(piezas[gen_pieza].values[i*size+j]){
+                    found_piece= xor(gameboard[i+y][j+x+1],piezas[gen_pieza].values[i*size+j+1]);
+                }
+            }        
+        }
+    }    
+    else{
+        
+        for(i=0;i<size;i++){
+            for(j=0;j<size;j++){
+                if(piezas[gen_pieza].values[i*size+j]){
 
+                    if(j<size-1){
+                        found_piece= xor(gameboard[i+y][j+x+1],piezas[gen_pieza].values[i*size+j+1]);
+                    }            
+                    else{
+                        if(gameboard[i+y][j+x+1]){
+                            found_piece=1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return found_piece;
+}
+int xor (int a,int b){
+    if (a == b){
+        return 0;
+    }
+    else{
+        return 1;
+    }
+}
 int check_left (int gen_pieza){
     
     int i,x,y,size,conta,loop=1;
