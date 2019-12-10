@@ -193,7 +193,7 @@ void piece_down(int n){
         
         py=++piezas[n].pos.y;
         px=piezas[n].pos.x;
-        if(px>200){
+        if(px>NCol){
             px=px-256;
         }
         
@@ -264,10 +264,9 @@ void piece_left(int n){
         py=piezas[n].pos.y;
         px=--piezas[n].pos.x;
         
-        if(px>200){
+        if(px>NCol){
             px=px-256;
         }
-        printf(" \n PX=%d ",px);
         
         for(j=0;j<piezas[n].size;j++){
             for(i=0;i<piezas[n].size;i++){
@@ -291,44 +290,7 @@ void piece_left(int n){
         }
     }
 }
-/*
-int check_right (int gen_pieza){
-    
-    int i,x,y,size,conta,move=1;
-    x=piezas[gen_pieza].pos.x;
-    y=piezas[gen_pieza].pos.y;
-    size=piezas[gen_pieza].size;
-    conta=0;
-    if(x==NCol-1){
-        return 1;
-    }
-    
-    if(x>=NCol-size){
 
-        for(i=0;i<size;i++,y++){
-            if(!(gameboard[y][NCol-1] && gameboard[y][(NCol-1)-1])){
-                conta++;
-            }
-        }
-        if(conta==size){
-            move=0;
-        }
-        
-    }
-    else{
-        x=x+size;
-        for(i=0;i<size;i++,y++){
-            if(!(gameboard[y][x] && gameboard[y][x-1])){
-                conta++;
-            }   
-        }
-        if(conta==size){
-            move=0;
-        }
-    }
-    return move;
-}
-*/
 int check_right (int gen_pieza){
     
     int x,y,size,i,j,found_piece=0;
@@ -384,7 +346,7 @@ int check_left (int gen_pieza){
     x=piezas[gen_pieza].pos.x;
     y=piezas[gen_pieza].pos.y;
     size=piezas[gen_pieza].size;
-    if(x>200){
+    if(x>NCol){
         x=x-256;
     }
     
@@ -417,7 +379,6 @@ int check_left (int gen_pieza){
             }
         }
     }
-    printf(" \nx=%d   y=%d \n",x,y);
     return found_piece;
 }
 
