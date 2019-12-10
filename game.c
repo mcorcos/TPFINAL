@@ -193,6 +193,9 @@ void piece_down(int n){
         
         py=++piezas[n].pos.y;
         px=piezas[n].pos.x;
+        if(px>200){
+            px=px-256;
+        }
         
         for(j=0;j<piezas[n].size;j++){
            for(i=0;i<piezas[n].size;i++){
@@ -261,6 +264,11 @@ void piece_left(int n){
         py=piezas[n].pos.y;
         px=--piezas[n].pos.x;
         
+        if(px>200){
+            px=px-256;
+        }
+        printf(" \n PX=%d ",px);
+        
         for(j=0;j<piezas[n].size;j++){
             for(i=0;i<piezas[n].size;i++){
                 if(piezas[n].values[i*(piezas[n].size)+j]){
@@ -328,8 +336,8 @@ int check_right (int gen_pieza){
     y=piezas[gen_pieza].pos.y;
     size=piezas[gen_pieza].size;
     if(x>=NCol-size){
-        for(i=0;i<size;i++){
-            for(j=0;j<size;j++){
+        for(i=0;i<size && found_piece==0;i++){
+            for(j=0;j<size && found_piece==0;j++){
                 if(piezas[gen_pieza].values[i*size+j]){
                     if(NCol==j+x+1){
                         found_piece=1;
@@ -340,8 +348,8 @@ int check_right (int gen_pieza){
     }    
     else{
         
-        for(i=0;i<size;i++){
-            for(j=0;j<size;j++){
+        for(i=0;i<size && found_piece==0;i++){
+            for(j=0;j<size && found_piece==0;j++){
                 if(piezas[gen_pieza].values[i*size+j]){
 
                     if(j<size-1){
@@ -372,7 +380,45 @@ int xor (int a,int b){
 
 int check_left (int gen_pieza){
     
-    return 0;
+    int x,y,size,i,j,found_piece=0;
+    x=piezas[gen_pieza].pos.x;
+    y=piezas[gen_pieza].pos.y;
+    size=piezas[gen_pieza].size;
+    if(x>200){
+        x=x-256;
+    }
+    
+    if(x<=0){
+        for(i=0;i<size && found_piece==0;i++){
+            for(j=0;j<size && found_piece==0;j++){
+                if(piezas[gen_pieza].values[i*size+j]){
+                    if((j+x-1)==-1){
+                        found_piece=1;
+                    }
+                }
+            }        
+        }
+    }    
+    else{
+        
+        for(i=0;i<size && found_piece==0;i++){
+            for(j=0;j<size && found_piece==0;j++){
+                if(piezas[gen_pieza].values[i*size+j]){
+
+                    if(j!=0){
+                        found_piece= xor(gameboard[i+y][j+x-1],piezas[gen_pieza].values[i*size+j-1]);
+                    }            
+                    else{
+                        if(gameboard[i+y][j+x-1]){
+                            found_piece=1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    printf(" \nx=%d   y=%d \n",x,y);
+    return found_piece;
 }
 
    
