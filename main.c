@@ -61,21 +61,24 @@ int main (void){
             int get_move;
             get_move=move();
             
+            cont=check_down(n);
             
             if(cont){
             
                 piece_down(n);  
             }  
               
-            if( get_move==2 ){
+            if( get_move==2 && cont){
                  
-                 
-                rotate(n);
-                print_pieza(n);
-            
+                int rot;
+                rot=rotate(n);
+                
+                if(rot){
+                    print_pieza(n);
+                }
             }
             
-            if( get_move==1 && !check_right(n) ){
+            if( get_move==1 && !check_right(n) && cont ){
                  
                  
                 piece_right(n);
@@ -83,35 +86,31 @@ int main (void){
             
             }
 
-            if( get_move==-1 && !check_left(n)){
+            if( get_move==-1 && !check_left(n) && cont ){
                 
                 piece_left(n);
                  
                  
             }
             
-            if( get_move==-1 && !check_left(n)){
-                
-                piece_left(n);
-                 
-                 
-            }
+            
                 
             
             
-            cont=check_down(n);
+            
             
             
                  
             
             update_board();
             disp_update();
-            check_board();
-            disp_update();
+            
+            
                    
             
-            usleep(100000);
+            usleep(200000);
     }
+        stayed_blocks();
         clean_struct(n);
         check_board();
         disp_update();

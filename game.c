@@ -5,6 +5,7 @@
 #include "disdrv.h"
 #include "joydrv.h"
 #include <time.h>
+#include <unistd.h>
 
 
 
@@ -42,7 +43,20 @@ void clean_struct (int gen_pieza){
     
     piezas[gen_pieza].pos.x=5;
     piezas[gen_pieza].pos.y=0;
-    piezas[gen_pieza].rotacion=0;
+    
+    if(piezas[gen_pieza].rotacion){
+        int i;
+        
+        
+        
+        for(i= 4-(piezas[gen_pieza].rotacion); i!=0 ;i--){
+            printf("%d\n",i);
+            reorder_pieza(gen_pieza);
+        }
+         piezas[gen_pieza].rotacion=0;
+    }
+   
+    
 /*
     order_values(gen_pieza,0);
 */
@@ -70,6 +84,7 @@ void check_board(void){
         
         if(countf==NCol){
             
+            
             ++score;
             
             for(j=0;j<NCol;j++){
@@ -77,8 +92,10 @@ void check_board(void){
                 gameboard[i][j]=0;  //hacer titilar las barras y que se haga todas jntas
             
             }
-        
-        descend_board(i);    
+            
+        descend_board(i);
+        ++i;
+        usleep(100000);
         }
         countf=0;
             
@@ -100,7 +117,7 @@ void descend_board(int lastf){
         }
     }
     
-    for(j=0;j<NCol;j++){
+    for(i=0;j<NCol;j++){
         
         gameboard[0][j]=0;
     }
@@ -112,7 +129,9 @@ int check_down (int n){     //argumento :numero de pieza  ______deuelvi 1 si me 
     
     int i,j,x=piezas[n].pos.x,y=(piezas[n].pos.y)+1,size=piezas[n].size,suma=0;
     
-    
+    if(x>NCol){
+        x=x-256;
+    }
     if (y<(VNFil+1)){ 
         
     
@@ -391,10 +410,10 @@ void print_pieza(int n){
     for(i=0;i<piezas[n].size;i++){
         for(j=0;j<piezas[n].size;j++){
             
-            
+                
             
                 gameboard[i+piezas[n].pos.y][j+piezas[n].pos.x]=piezas[n].values[i*piezas[n].size+j];
-            
+               
             
         }
     }
@@ -405,9 +424,27 @@ void print_pieza(int n){
         
 }
 
-void rotate(int n){
+int rotate(int n){
     
-    int size=piezas[n].size;
+    int i,j,cont=0;
+    
+    for(i=0;i<piezas[n].size;i++){
+        for(j=0;j<piezas[n].size;j++){
+            
+                
+            if(gameboard[i+piezas[n].pos.y][j+piezas[n].pos.x] != piezas[n].values[i*piezas[n].size+j]){
+                cont++;
+            } 
+            
+        }
+    }
+    
+    
+    if( piezas[n].pos.x+piezas[n].size < NCol && cont==0 ){
+        
+    
+    
+        int size=piezas[n].size;
 	
         int mat[size][size];
 	
@@ -437,11 +474,80 @@ void rotate(int n){
 	}
         
         ++piezas[n].rotacion;
+        
+        printf("pieza rotada=%d\n",piezas[n].rotacion);
         if (piezas[n].rotacion ==4){
             
             piezas[n].rotacion=0;
         }
         
-        
-        
+      
+    }
+     return (!cont);   
+}
+
+void stayed_blocks(void){
+    
+    int i,j;
+    for(i=0;i<VNFil;i++){
+        for(j=0;j<NCol;j++){
+            
+                
+            switch(gameboard[i][j]){
+                
+                
+            case 1: gameboard[i][j]=11;
+                 break;
+            case 2:gameboard[i][j]=12;
+                 break;
+            case 3:gameboard[i][j]=13;
+                 break;
+            case 4:gameboard[i][j]=14;
+                 break;
+            case 5:gameboard[i][j]=15;
+                 break;
+            case 6:gameboard[i][j]=16;
+                 break;
+            case 7:gameboard[i][j]=17;
+                 break;
+
+                
+            } 
+            
+        }
+    }
+    
+    
+}
+
+void reorder_pieza(int n){
+    
+    int size=piezas[n].size;
+	
+        int mat[size][size];
+	
+	int i,j;
+	
+        for(i=0;i<size;i++){
+		
+		
+		
+		for(j=0;j<size;j++){
+
+			mat[i][j]=piezas[n].values[(size-1-j)*size+i];
+			
+		}
+	}
+	
+	
+	for(i=0;i<size;i++){
+		
+		
+		
+		for(j=0;j<size;j++){
+
+			piezas[n].values[i*size+j]=mat[i][j];
+			
+		}
+	}
 }

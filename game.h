@@ -26,10 +26,10 @@ void piece_left(int n);
 void piece_right(int n);
 void piece_down(int n);
 int xor(int a,int b);
-void rotate(int n);
+int rotate(int n);
 void print_pieza(int n);
-
-
+void stayed_blocks(void);
+void reorder_pieza(int n);
 
 #endif
 

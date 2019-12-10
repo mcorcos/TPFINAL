@@ -44,7 +44,7 @@ int move (void){
     if(coord.x < (-1)*THRESHOLD){
         get_move=-1;
     }
-    if(coord.y > THRESHOLD){
+    if(coord.y > (2*THRESHOLD)){
         get_move=2;
     }
     if(coord.y < (-1)*THRESHOLD){
