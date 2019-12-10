@@ -65,7 +65,7 @@ int main (void){
             
             if(cont){
             
-                piece_down(n);  
+                piece_down(n); 
             }  
               
             if( get_move==2 && cont){
