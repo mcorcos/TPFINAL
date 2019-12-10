@@ -16,7 +16,7 @@
 #define STRUCTS_H
 
 #define NCol 12
-#define VNFil 18
+#define VNFil 20
 #define NFil 16
 
 

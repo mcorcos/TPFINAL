@@ -25,7 +25,7 @@ int gameboard[VNFil+1][NCol];
 void update_board(void);
 void inicializacion(void);
 int move (void);
-int print_pieza(int n);
+
 void printboard (void);
 
 int main (void){
@@ -52,7 +52,8 @@ int main (void){
         int cont;
         cont=1;
         
-        cont=print_pieza(n);
+        
+        print_pieza(n);
         update_board();
         disp_update();
         
@@ -61,13 +62,20 @@ int main (void){
             get_move=move();
             
             
-            
             if(cont){
             
                 piece_down(n);  
             }  
+              
+            if( get_move==2 ){
+                 
+                 
+                rotate(n);
+                print_pieza(n);
             
-            if( get_move> 0 && !check_right(n) ){
+            }
+            
+            if( get_move==1 && !check_right(n) ){
                  
                  
                 piece_right(n);
@@ -75,13 +83,21 @@ int main (void){
             
             }
 
-            if( get_move< 0 && !check_left(n)){
+            if( get_move==-1 && !check_left(n)){
                 
                 piece_left(n);
-                 printf("its moving,Well done sir\n");
+                 
                  
             }
-
+            
+            if( get_move==-1 && !check_left(n)){
+                
+                piece_left(n);
+                 
+                 
+            }
+                
+            
             
             cont=check_down(n);
             
@@ -90,14 +106,17 @@ int main (void){
             
             update_board();
             disp_update();
-            
+            check_board();
+            disp_update();
+                   
             
             usleep(100000);
     }
         clean_struct(n);
+        check_board();
+        disp_update();
         
-        
-    }while(joy_get_switch() == J_NOPRESS);
+    }while(joy_get_switch() == J_NOPRESS );
 
 	
 

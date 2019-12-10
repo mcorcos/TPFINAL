@@ -44,7 +44,12 @@ int move (void){
     if(coord.x < (-1)*THRESHOLD){
         get_move=-1;
     }
-    
+    if(coord.y > THRESHOLD){
+        get_move=2;
+    }
+    if(coord.y < (-1)*THRESHOLD){
+        get_move=-2;
+    }
     
     return get_move;
 }
@@ -74,7 +79,7 @@ void update_board(void){
         for(j=0;j<NCol;j++){
             pos.x=j;
             pos.y=i;
-            if(gameboard[i+2][j]){
+            if(gameboard[i+4][j]){
                 
                 disp_write(pos,D_ON);
                 

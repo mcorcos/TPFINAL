@@ -5,7 +5,7 @@
 #include "disdrv.h"
 #include "joydrv.h"
 #include <time.h>
-int print_pieza(int n);
+
 
 
 typedef struct {
@@ -55,13 +55,18 @@ void check_board(void){
     int i,j,countf=0,score=0;
     
     
-    for(i=NFil-1;i>=0;i-- ){
+    for(i=VNFil-1;i>=4;i-- ){
         
         for(j=NCol-1;j>=0;j--){
             
-            ++countf;
+            if(gameboard[i][j]){
             
+                ++countf;
+            
+            }
         }
+        
+                   
         
         if(countf==NCol){
             
@@ -108,7 +113,7 @@ int check_down (int n){     //argumento :numero de pieza  ______deuelvi 1 si me 
     int i,j,x=piezas[n].pos.x,y=(piezas[n].pos.y)+1,size=piezas[n].size,suma=0;
     
     
-    if (y<(VNFil+1)){
+    if (y<(VNFil+1)){ 
         
     
     for(i=0;i<size;i++){
@@ -353,6 +358,8 @@ int check_right (int gen_pieza){
     }
     return found_piece;
 }
+
+
 int xor (int a,int b){
     if (a == b){
         return 0;
@@ -361,44 +368,18 @@ int xor (int a,int b){
         return 1;
     }
 }
+
+
 int check_left (int gen_pieza){
     
-    int i,x,y,size,conta,loop=1;
-    x=piezas[gen_pieza].pos.x;
-    y=piezas[gen_pieza].pos.y;
-    size=piezas[gen_pieza].size;
-    
-    if(x<=0){
-
-        for(i=0,conta=0;i<size;i++,y++){
-            if(!(gameboard[y][0] && gameboard[y][1])){
-                
-                conta++;
-            }
-        }
-        if(conta==size){
-            loop=0;
-        }
-    }
-    else{
-        
-        for(i=0,conta=0;i<size;i++,y++){
-            
-            if(!(gameboard[y][x] && gameboard[y][x-1])){
-                conta++;
-            }   
-        }
-        if(conta==size){
-            loop=0;
-        }
-        
-    }
-    return loop;
+    return 0;
 }
 
-int print_pieza(int n){
+   
+    
+void print_pieza(int n){
 	
-    int cont=1,i,j;
+    int i,j;
     
     for(i=0;i<piezas[n].size;i++){
         for(j=0;j<piezas[n].size;j++){
@@ -413,6 +394,47 @@ int print_pieza(int n){
     
              
         
-        return cont;
+        
+        
+}
+
+void rotate(int n){
+    
+    int size=piezas[n].size;
+	
+        int mat[size][size];
+	
+	int i,j;
+	
+        for(i=0;i<size;i++){
+		
+		
+		
+		for(j=0;j<size;j++){
+
+			mat[i][j]=piezas[n].values[(size-1-j)*size+i];
+			
+		}
+	}
+	
+	
+	for(i=0;i<size;i++){
+		
+		
+		
+		for(j=0;j<size;j++){
+
+			piezas[n].values[i*size+j]=mat[i][j];
+			
+		}
+	}
+        
+        ++piezas[n].rotacion;
+        if (piezas[n].rotacion ==4){
+            
+            piezas[n].rotacion=0;
+        }
+        
+        
         
 }
