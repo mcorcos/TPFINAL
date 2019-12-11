@@ -17,6 +17,7 @@
 #include    "disdrv.h"
 #include <unistd.h>
 #include "joydrv.h"
+
 #include <pthread.h>
 
 
@@ -133,7 +134,7 @@ int main (void){
 int piece_set_down=0,finish=0,moving=0;
 unsigned int TimerTick=4;
 int n,end=1;
-int get_move,conta,timex;
+int get_move,conta,timex=150;
 
 
 
@@ -144,7 +145,7 @@ void* thread_timer()  // Time base Thread
     while(end)
     {
         if(conta>=7){
-            timex-=20;
+            timex-=15;
             conta=0;
         }
 		usleep(timex*ONE_MS); // 100ms * 
@@ -208,6 +209,10 @@ void * thread_newpiece(){ // Periodic Task Thread
             if(piece_set_down && moving){
                 
                 printf("soy newpiece\n\n");
+                stayed_blocks(); 
+            
+                check_board();
+                clean_struct(n);
                 n=gen_pieza();
                 printf("pieza numero:%d\n",n);
                 print_pieza(n);
@@ -222,11 +227,11 @@ void * thread_newpiece(){ // Periodic Task Thread
 
 void * thread_move(){ // The APP
 	while (end){
-            if(TimerTick && piece_set_down==0){
+            if(TimerTick && piece_set_down==0 ){
                 printf("soy move\n\n");
                 get_move=move();
                 
-                usleep(timex*ONE_MS);               
+                usleep(10*ONE_MS);               
                 if( get_move==2 ){
 
                     int rot;
@@ -256,9 +261,14 @@ void * thread_move(){ // The APP
                     down(n);
 
                 }                
-
+                
+                if (!check_down(n)){
+                    
+                    usleep((timex-10)*ONE_MS);
+                    
+                }
                 update_board();
-                disp_update();
+                
                 finish=1;
 
             }
@@ -271,9 +281,7 @@ void * thread_check_board(){
         
         if(piece_set_down && (!moving)){
             printf("soy chek\n\n");
-            stayed_blocks(); 
-            clean_struct(n);
- //           check_board();
+            
             moving=1;
             
         }
@@ -282,7 +290,7 @@ void * thread_check_board(){
 
 
 
-int main()
+int main(void)
 {
         pthread_t tid1,tid2,tid3,tid4,tid5;
         srand(time(NULL));
@@ -299,14 +307,16 @@ int main()
         init_blocks();
         inicializacion();
 
-        disp_update();
+        
         
         n=gen_pieza();
         printf("pieza numero:%d\n",n);
 
         print_pieza(n);
         update_board();
-        disp_update();
+        
+        
+        
 
         pthread_create(&tid1,NULL,thread_timer,NULL);
         pthread_create(&tid4,NULL,thread_newpiece,NULL);
@@ -319,7 +329,11 @@ int main()
         pthread_join(tid3,NULL);
         pthread_join(tid4,NULL);
         pthread_join(tid5,NULL);
+        
+        
+        
         return 0;
+        
 }
   
    
