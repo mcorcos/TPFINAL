@@ -552,9 +552,10 @@ void reorder_pieza(int n){
 	}
 }
 void down(int n){
+    
     for(;check_down(n);){
         piece_down(n);
-        update_board();
+        
         disp_update();
         usleep(70000);
     }
