@@ -30,6 +30,7 @@ int rotate(int n);
 void print_pieza(int n);
 void stayed_blocks(void);
 void reorder_pieza(int n);
+void down (int n);
 
 #endif
 
