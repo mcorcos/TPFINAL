@@ -557,7 +557,7 @@ void down(int n){
     
     for(;check_down(n) && move()==-2;){
         piece_down(n);
-        update_board();
+        
         
         usleep(70000);
     }

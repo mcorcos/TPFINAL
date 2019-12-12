@@ -38,7 +38,7 @@ int move (void){
     
     coord=joy_get_coord();
     
-    
+    usleep(25000);
     if(coord.x > THRESHOLD){
         get_move=1;
     }
@@ -47,11 +47,14 @@ int move (void){
     }
     if(coord.y > (2*THRESHOLD)){
         get_move=2;
+        usleep(50000);
     }
     if(coord.y < (-2)*THRESHOLD){
         get_move=-2;
     }
-    
+    if(joy_get_switch()==J_PRESS){
+        get_move=10;
+    }
     return get_move;
 }
 
