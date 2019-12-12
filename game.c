@@ -440,7 +440,7 @@ int rotate(int n){
     }
     
     
-    if( piezas[n].pos.x+piezas[n].size < NCol && cont==0 ){
+    if( piezas[n].pos.x+piezas[n].size < (NCol+1) && cont==0 ){
         
     
     
@@ -551,12 +551,14 @@ void reorder_pieza(int n){
 		}
 	}
 }
+int move (void);
+
 void down(int n){
     
-    for(;check_down(n);){
+    for(;check_down(n) && move()==-2;){
         piece_down(n);
+        update_board();
         
-        disp_update();
         usleep(70000);
     }
 }

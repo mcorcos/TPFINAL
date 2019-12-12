@@ -33,7 +33,7 @@ void update_board(void);
 void inicializacion(void);
 int move (void);
 
-void printboard (void);
+
  
 /*
 
@@ -170,6 +170,7 @@ void* thread_down(){ // Periodic Task Thread
                     printf("bajo");
                     
                     piece_down(n);
+                    
                                       
                 }
                 else{
@@ -189,7 +190,7 @@ void * thread_joy(){ // Periodic Task Thread
 	while (end) 
 	{
             printf("%d\n",end);
-            if(joy_get_switch() == J_NOPRESS){
+            if(joy_get_switch() != J_NOPRESS){
                 end=0;
             }
 
@@ -323,7 +324,7 @@ int main(void)
         pthread_create(&tid2,NULL,thread_down,NULL);
         pthread_create(&tid3,NULL,thread_move,NULL);
         pthread_create(&tid5,NULL,thread_check_board,NULL);        
- //       pthread_create(&tid5,NULL,thread_joy,NULL);        
+       pthread_create(&tid5,NULL,thread_joy,NULL);        
         pthread_join(tid1,NULL);
         pthread_join(tid2,NULL);
         pthread_join(tid3,NULL);

@@ -37,7 +37,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/game.o \
 	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/pc.o \
 	${OBJECTDIR}/rpi.o \
 	${OBJECTDIR}/structs.o
 
@@ -80,11 +79,6 @@ ${OBJECTDIR}/main.o: main.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.c
-
-${OBJECTDIR}/pc.o: pc.c
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/pc.o pc.c
 
 ${OBJECTDIR}/rpi.o: rpi.c
 	${MKDIR} -p ${OBJECTDIR}
