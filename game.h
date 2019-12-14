@@ -19,7 +19,7 @@ int down_pieze(int piezano);
 int gen_pieza(void);
 void clean_struct (int gen_pieza);
 int check_right(int gen_pieza);
-void check_board(void);
+int check_board(int level);
 void descend_board(int lastf);
 int check_down(int n);
 void piece_left(int n);
@@ -31,6 +31,12 @@ void print_pieza(int n);
 void stayed_blocks(void);
 void reorder_pieza(int n);
 void down (int n);
+void letter_left(int palabra);
+void clean_word (int palabra);
+void clear_board(void);
+int check_level(int score);
+void init_word(int palabra);
+void init_game(int chosen_mode,int chosen_diff);
 
 #endif
 

@@ -21,13 +21,97 @@ typedef struct {
     int rotacion;
     
 }ARR_PIECES; 
-extern ARR_PIECES piezas[];
 
+
+typedef struct {
+    
+    int *values;
+    int size;
+    dcoord_t pos;    
+    
+}NUM; 
+
+extern ARR_PIECES piezas[];
+extern NUM nums[5];
 
 void update_board(void);
 void inicializacion(void);
 int move (void);
+void print_menu (void);
 
+
+void print_menu (void){
+    
+    int i,j,chosen_mode,chosen_diff,palabra,numero,get_move;
+    
+                while(move()!=10){
+
+                    get_move=move();
+                    
+                    switch(get_move){
+                        case 2: 
+                                printf("llegue\n");
+                                if(palabra>0){
+                                    palabra--;
+                                    clear_board();
+                                }
+                                break;
+
+                        case -2:
+                                printf(" llegue 646\n");                            
+                                if(palabra<1){
+                                    palabra++;
+                                }
+                                break;
+                    }
+                    letter_left(palabra);
+                }
+                
+                clear_board();
+                chosen_mode=palabra;
+                
+                get_move=1;
+     
+                while(get_move != 10){
+                    
+                    get_move=move();
+                    
+                    switch(get_move){
+                        case 1: 
+                                printf("llegue a la x");
+                                if(numero<5){
+                                    numero++;
+                                    clear_board();
+                                }
+                                break;
+                        case -1:
+                                printf("llegue a la x2");
+                                if(numero>0){
+                                    numero--;
+                                    clear_board();
+                                }
+                                break;
+                    }
+                    for(i=0;i<nums[numero].size;i++){
+                        for(j=0;j<nums[numero].size;j++){
+
+                            if(nums[numero].values[i*(nums[numero].size)+j] ){
+
+
+                             gameboard[nums[numero].pos.y+i][j+nums[numero].pos.x]=nums[numero].values[i*(nums[numero].size)+j];
+
+                            }
+
+                        }
+                    } 
+                }
+                
+                clear_board();
+                chosen_diff=numero;
+                create_floor();
+                init_game(chosen_mode,chosen_diff);    
+
+}
 
 
 int move (void){
@@ -63,15 +147,6 @@ void inicializacion (void){
     disp_init();
     disp_clear();
     int i;
-    for(i=0;i<NFil;i++){
-        
-        static dcoord_t pos;
-        pos.y=i;
-        pos.x=NCol;
-        
-        disp_write(pos,D_ON);
-        
-    }
 }
 
 void update_board(void){
