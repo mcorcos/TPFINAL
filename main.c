@@ -269,7 +269,7 @@ int main()
 
 
 int gameboard[VNFil+1][NCol];
-
+extern score;
 
 void update_board(void);
 void inicializacion(void);
@@ -294,17 +294,17 @@ typedef struct {
 
 WORD words[2];
     
-int piece_set_down=0,finish=0;
+int piece_set_down=0,finish=0,pausa=0;
 unsigned int TimerTick=2,level=1;
 int n,end=1,palabra=0,numero=0,chosen_mode,chosen_diff,menu=1,wait1,wait2;
 int get_move,conta,timex=70;
 void closepro(void);
-
+void print_stopmenu(void);
 
 
 void closepro(void){
     
-    return 0;
+    
 }
 
 
@@ -312,11 +312,11 @@ void* thread_timer()  // Time base Thread
 {	       
     while(end)
     {
-        usleep(timex*ONE_MS); // 100ms * 
+        usleep((timex-(level-1)*15)*ONE_MS); // 100ms * 
         if (TimerTick){
 
             TimerTick--;
-                printf("soy tick--\n\n");
+              //  printf("soy tick--\n\n");
         }
     }
 }
@@ -329,10 +329,10 @@ void* thread_down(){ // Periodic Task Thread
 
         while(!menu && end){            
             if(piece_set_down || (!TimerTick)){
-                    printf("soy Down\n\n");
+                    //rintf("soy Down\n\n");
                     if(check_down(n)){
 
-                        printf("bajo");
+                       // printf("bajo");
 
                         piece_down(n);
 
@@ -343,7 +343,7 @@ void* thread_down(){ // Periodic Task Thread
 
                     if(piece_set_down){
 
-                        printf("soy newpiece\n\n");
+                        //printf("soy newpiece\n\n");
 
                         stayed_blocks(); 
                         level=check_level(check_board(level));
@@ -354,7 +354,7 @@ void* thread_down(){ // Periodic Task Thread
                         clean_struct(n);
 
                         n=gen_pieza();
-                        printf("pieza numero:%d\n",n);
+                       // printf("pieza numero:%d\n",n);
                         print_pieza(n);
                         piece_set_down=0;
                         conta++;
@@ -372,10 +372,25 @@ void * thread_joy(){ // Periodic Task Thread
 
 
         while (end){   
-
-            if(move()==10){
-                end=0;
-                closepro();
+            
+            
+            
+            if(pausa){
+                
+                
+                menu=1;
+                pausa=0;
+                
+                print_stopmenu();
+                clean_struct(n);
+                update_board();
+                menu=0;
+                
+                
+                
+                
+                
+                
             }
 
         }
@@ -410,6 +425,7 @@ void * thread_move(){ // The APP
                         if(rot){
                             print_pieza(n);
                         }
+                        usleep(100000);
                     }
 
                     if( get_move==1 && !check_right(n) ){
@@ -432,9 +448,12 @@ void * thread_move(){ // The APP
                         
                     }    
 
-                    if(move()==10){
-                        end=0;
+                   
+                    if(get_move==10){
+                        pausa=1;
+                        menu=1;
                     }
+                   
                     if (!check_down(n)){
 
                         usleep((timex-10)*ONE_MS);
@@ -451,13 +470,17 @@ void * thread_move(){ // The APP
 void * thread_menu(){ // The APP
 
 
-        while(end){
+        
+            
             while(menu){
                 print_menu();
                 menu=0;
             }
-
-        }
+            
+            
+        
+       
+        
 
 }
 
@@ -474,7 +497,13 @@ void * thread_init(){
 
     
     clean_word(0);
-
+    clean_word(1);
+    clean_word(2);
+    clean_word(3);
+    clean_word(4);
+    clean_word(5);
+    clean_word(6);
+    
     init_blocks();
     inicializacion();
 
@@ -487,16 +516,20 @@ void * thread_init(){
 
             
     while(end){
+        while(!menu && end){
+            
+        
             update_board();
             usleep(1000);
+        }
         }
 }
 
 
 
-int main()
+int main(void)
 {
-        pthread_t tid1,tid2,tid3,tid4,tid5;
+        pthread_t tid1,tid2,tid3,tid4,tid5,tid6;
         srand(time(NULL));    
         
         pthread_create(&tid4,NULL,thread_init,NULL);
@@ -509,13 +542,15 @@ int main()
         usleep(1000000);
         pthread_create(&tid2,NULL,thread_down,NULL);
         usleep(1000000);
-        
+          pthread_create(&tid6,NULL,thread_joy,NULL);
+        usleep(1000000);
       
         pthread_join(tid1,NULL);
         pthread_join(tid2,NULL);
         pthread_join(tid3,NULL);     
         pthread_join(tid4,NULL);
-        pthread_join(tid5,NULL);        
+        pthread_join(tid5,NULL);     
+        pthread_join(tid6,NULL);
         return 0;
         
 }

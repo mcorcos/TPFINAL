@@ -36,8 +36,8 @@ typedef struct {
 
 ARR_PIECES piezas[7];
 
-NUM nums[9];
-WORD words[5]; 
+NUM nums[10];
+WORD words[6]; 
 
 
 struct pieza1_T{
@@ -223,6 +223,46 @@ struct num5_T NUM_5={{
                         0,1,1,1,0        
                             },5};
 
+struct num5_T NUM_6={{
+			0,1,1,1,0,
+			0,1,0,0,0,
+			0,1,1,1,0,
+                        0,1,0,1,0,
+                        0,1,1,1,0        
+                            },5};
+
+struct num5_T NUM_7={{
+			0,1,1,1,0,
+			0,0,0,1,0,
+			0,0,1,0,0,
+                        0,0,1,0,0,
+                        0,0,1,0,0        
+                            },5};
+
+struct num5_T NUM_8={{
+			0,1,1,1,0,
+			0,1,0,1,0,
+			0,1,1,1,0,
+                        0,1,0,1,0,
+                        0,1,1,1,0        
+                            },5};
+
+struct num5_T NUM_9={{
+			0,1,1,1,0,
+			0,1,0,1,0,
+			0,1,1,1,0,
+                        0,0,0,1,0,
+                        0,0,0,1,0        
+                            },5};
+
+struct num5_T NUM_0={{
+			0,1,1,1,0,
+			0,1,0,1,0,
+			0,1,0,1,0,
+                        0,1,0,1,0,
+                        0,1,1,1,0        
+                            },5};
+
 struct letra_T{
         
         int values[20];
@@ -232,7 +272,7 @@ struct letra_T{
 
 struct word1_T{
         
-        int values[28*5];
+        int values[29*5];
         int sizex;
         int sizey;
         
@@ -246,8 +286,46 @@ struct word1_T WORD_1={{
                         1,0,0,0,1,1,1,0,1,0,1,0,1,1,1,0,1,0,1,0,1,0,1,0,1,1,1,0                             
                        },28,5};
 
+struct word1_T WORD_2={{1,0,0,0,1,1,1,0,0,1,0,0,1,1,0,0,
+                        1,0,0,0,1,0,1,0,1,0,1,0,1,0,1,0, 
+                        1,0,0,0,1,0,1,0,1,1,1,0,1,0,1,0,
+                        1,0,0,0,1,0,1,0,1,0,1,0,1,0,1,0,
+                        1,1,1,0,1,1,1,0,1,0,1,0,1,1,0,0                    
+                                                     
+                       },16,5};
 
-                           
+    struct word1_T WORD_3={{1,1,1,0,0,1,0,0,1,0,1,0,1,1,1,0,
+                            1,0,0,0,1,0,1,0,1,0,1,0,1,0,0,0, 
+                            1,1,1,0,1,1,1,0,1,0,1,0,1,1,0,0,
+                            0,0,1,0,1,0,1,0,1,0,1,0,1,0,0,0,
+                            1,1,1,0,1,0,1,0,0,1,0,0,1,1,1,0                    
+                                                     
+                       },16,5};      
+    
+    struct word1_T WORD_4={{1,1,1,0,1,0,1,0,1,0,1,1,1,0,
+                            1,0,0,0,1,0,1,0,1,0,0,1,0,0, 
+                            1,1,0,0,0,1,0,0,1,0,0,1,0,0,
+                            1,0,0,0,1,0,1,0,1,0,0,1,0,0,
+                            1,1,1,0,1,0,1,0,1,0,0,1,0,0                   
+                                                     
+                       },14,5};  
+    
+    struct word1_T WORD_5={{
+                        1,1,1,0,1,1,1,0,0,0,1,0,1,1,1,0,1,0,0,0,1,0,1,0,1,0,1,1,1,  
+                        1,0,0,0,1,0,1,0,1,0,1,0,0,1,0,0,1,0,1,0,1,0,1,0,1,0,1,0,0,   
+                        1,0,0,0,1,0,1,0,1,1,1,0,0,1,0,0,1,0,1,1,1,0,1,0,1,0,1,1,0, 
+                        1,0,0,0,1,0,1,0,1,0,1,0,0,1,0,0,1,0,1,0,1,0,1,0,1,0,1,0,0,
+                        1,1,1,0,1,1,1,0,1,0,0,0,0,1,0,0,1,0,1,0,0,0,1,1,1,0,1,1,1                             
+                       },29,5};
+    
+    struct word1_T WORD_6={{
+                        1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,  
+                        1,0,0,0,1,0,0,0,1,0,1,0,1,0,1,0,1,0,0,0, 
+                        1,1,1,0,1,0,0,0,1,0,1,0,1,1,0,0,1,1,0,0,
+                        0,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,1,0,1,0,
+                        1,1,1,0,1,1,1,0,1,1,1,0,1,0,1,0,1,1,1,0                           
+                       },20,5};
+    
 
 
 struct letra_T LETRA_A={{
@@ -486,6 +564,27 @@ void init_blocks(void){
     words[0].sizex=WORD_1.sizex;
     words[0].sizey=WORD_1.sizey;
     
+    words[1].values=(WORD_2.values);
+    words[1].sizex=WORD_2.sizex;
+    words[1].sizey=WORD_2.sizey;
+    
+    words[2].values=(WORD_3.values);
+    words[2].sizex=WORD_3.sizex;
+    words[2].sizey=WORD_3.sizey;
+    
+    words[3].values=(WORD_4.values);
+    words[3].sizex=WORD_4.sizex;
+    words[3].sizey=WORD_4.sizey;
+    
+    words[4].values=(WORD_5.values);
+    words[4].sizex=WORD_5.sizex;
+    words[4].sizey=WORD_5.sizey;
+   
+    words[5].values=(WORD_6.values);
+    words[5].sizex=WORD_6.sizex;
+    words[5].sizey=WORD_6.sizey;
+    
+    
     nums[0].values=(NUM_1.values);
     nums[0].size=NUM_1.size;
     nums[0].pos.x=3;
@@ -506,11 +605,37 @@ void init_blocks(void){
     nums[3].pos.x=3;
     nums[3].pos.y=7;
     
-    nums[4].values=(NUM_4.values);
-    nums[4].size=NUM_4.size;  
+    nums[4].values=(NUM_5.values);
+    nums[4].size=NUM_5.size;  
     nums[4].pos.x=3;
-    nums[4].pos.y=7;              
-         
+    nums[4].pos.y=7;
+    
+    nums[5].values=(NUM_6.values);
+    nums[5].size=NUM_6.size;  
+    nums[5].pos.x=3;
+    nums[5].pos.y=7;
+   
+    nums[6].values=(NUM_7.values);
+    nums[6].size=NUM_7.size;  
+    nums[6].pos.x=3;
+    nums[6].pos.y=7;
+    
+    nums[7].values=(NUM_8.values);
+    nums[7].size=NUM_8.size;  
+    nums[7].pos.x=3;
+    nums[7].pos.y=7;
+    
+    nums[8].values=(NUM_9.values);
+    nums[8].size=NUM_9.size;  
+    nums[8].pos.x=3;
+    nums[8].pos.y=7;
+    
+    nums[9].values=(NUM_0.values);
+    nums[9].size=NUM_0.size;  
+    nums[9].pos.x=3;
+    nums[9].pos.y=7;
+    
+    
 }
 
 void create_floor(void){

@@ -557,15 +557,11 @@ void down(int n){
 #define VERTICAL y
 #define ENTER '\n'
 
-static int score,level=0;
+int score;
 
+#include "disdrv.h"
 
-
-typedef struct { 
-    unsigned int x;
-    unsigned int y;
-    
-}dcoord_t;
+int storage [VNFil+1][NCol];
 
 typedef struct {
     
@@ -595,7 +591,7 @@ typedef struct {
     
 }WORD; 
 
-
+extern unsigned int level;
 extern int gameboard[VNFil+1][NCol];
 
 extern ARR_PIECES piezas[7];
@@ -700,13 +696,23 @@ int check_board(int level){
 
 int check_level (int score){
     
-    if(level==1){
+    if(level==1 ){
         if(score>1000){
             level++;
         }
     }
     if(level==2){
         if(score>2000){
+            level++;
+        }
+    }
+    if(level==3 ){
+        if(score>3000){
+            level++;
+        }
+    }
+    if(level==4 ){
+        if(score>4000){
             level++;
         }
     }
@@ -865,7 +871,7 @@ void init_game(int chosen_mode,int chosen_diff){
     switch(chosen_mode){
         case 1: // gameboard empieza normal
             break;
-        case 2: //gameboard guardado de arreglo de tipo gameboard    
+        case 2: //   
             break;
     }
     switch(chosen_diff){
@@ -878,7 +884,7 @@ void init_game(int chosen_mode,int chosen_diff){
         case 3: // gameboard con dificultades y timex mas rapido
             break;
             
-        case 4: // modo leyenda
+        case 4: level=4;// modo leyenda
             break;            
     }
     
@@ -950,8 +956,10 @@ void letter_left(int palabra){
     py= words[palabra].pos.y;
     px=--(words[palabra].pos.x);
 
-    if(px>100){
-        px=px-256;
+   
+   if(px>100 ){
+       
+        px=px - 256;
     }    
     
     if(px != 0-words[palabra].sizex){
@@ -960,25 +968,25 @@ void letter_left(int palabra){
 
         for(j=0;j<words[palabra].sizex;j++){
             for(i=0;i<words[palabra].sizey;i++){
+                
                 pos.x=px+j+1;
                 pos.y=py+i;
-                if(words[palabra].values[i*(words[palabra].sizex)+j]){
+                if(words[palabra].values[i*(words[palabra].sizex)+j] && pos.x<16 && pos.x>=0 && pos.y<16 && pos.y >0){
 
-                    disp_write(pos,1);
-
-                }
-                else{
                     disp_write(pos,0);
+
                 }
+                
             } 
         }
         disp_update();
-
+        
+        
         for(i=0;i<words[palabra].sizey;i++){
             for(j=0;j<words[palabra].sizex;j++){
                 pos.x=px+j;
                 pos.y=py+i;
-                if(words[palabra].values[i*(words[palabra].sizex)+j]==1 && (px+j)<16 && (px+j)>=0){
+                if(words[palabra].values[i*(words[palabra].sizex)+j]==1 && (pos.x)<16 && (pos.x)>=0 && pos.y<16 && pos.y >0){
 
                     disp_write(pos,D_ON);
                     
@@ -986,7 +994,7 @@ void letter_left(int palabra){
                       words[palabra].values[i*(words[palabra].sizex)+j]=11;  
                     }
                     
-                    disp_update();
+                    
                 }
                 
             }
