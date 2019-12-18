@@ -8,7 +8,8 @@
 
 
 
-typedef struct {
+
+typedef struct {    //estrutura de las piezas de tetris
     
     int *values;
     int size;
@@ -17,15 +18,15 @@ typedef struct {
     
 }ARR_PIECES; 
 
-typedef struct {
+typedef struct {        // estructura numeros a utilizar
     
     int *values;
     int size;
     dcoord_t pos;    
     
 }NUM; 
-
-typedef struct {
+    
+typedef struct {           //estructura de las palabras a utilizar
     
     int *values;
     int sizex;
@@ -34,13 +35,17 @@ typedef struct {
     
 }WORD; 
 
+
+
 ARR_PIECES piezas[7];
 
 NUM nums[10];
-WORD words[6]; 
+WORD words[7]; 
 
-
-struct pieza1_T{
+//
+ // a continuacion estan las estructuras particukares de las 7 piezas del tetris declaradas
+//
+struct pieza1_T{      
         
         int values[16];
         int size;
@@ -97,7 +102,9 @@ struct pieza7_T{
     };
     
  
-    
+    //
+    //defincion de las 7 piezas del tetris
+    //
 
 
 
@@ -144,9 +151,9 @@ struct pieza7_T PIEZA_7={{
                         0,7,0
                               },3};
 
-
-
-
+//
+//deckaro lsa estrcuturas para los numeros
+//
 
 struct num1_T{
         
@@ -182,6 +189,10 @@ struct num5_T{
         int size;
         
 };
+
+//
+//Defino los numeros
+//
 
 struct num1_T NUM_1={{
 			0,1,1,0,0,
@@ -263,22 +274,25 @@ struct num5_T NUM_0={{
                         0,1,1,1,0        
                             },5};
 
-struct letra_T{
-        
-        int values[20];
-        int size;
-        
-};
+//
+//declaro las estructuras para las palabras 
+//
+
+
 
 struct word1_T{
         
-        int values[29*5];
+        int values[30*5];
         int sizex;
         int sizey;
         
 };
 
-struct word1_T WORD_1={{
+//
+//Defino las palabras que vamos a utilizar en los menu de inicio y pausa
+//
+
+struct word1_T WORD_1={{    //NEWGAME
                         0,0,1,0,1,1,1,0,1,0,1,0,1,1,1,0,0,1,0,0,1,0,1,0,1,1,1,0,  
                         1,0,1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,1,1,0,1,0,0,0,   
                         1,1,1,0,1,1,0,0,1,0,1,0,1,1,1,0,1,1,1,0,1,0,1,0,1,1,0,0, 
@@ -286,7 +300,7 @@ struct word1_T WORD_1={{
                         1,0,0,0,1,1,1,0,1,0,1,0,1,1,1,0,1,0,1,0,1,0,1,0,1,1,1,0                             
                        },28,5};
 
-struct word1_T WORD_2={{1,0,0,0,1,1,1,0,0,1,0,0,1,1,0,0,
+struct word1_T WORD_2={{1,0,0,0,1,1,1,0,0,1,0,0,1,1,0,0,            //LOAD
                         1,0,0,0,1,0,1,0,1,0,1,0,1,0,1,0, 
                         1,0,0,0,1,0,1,0,1,1,1,0,1,0,1,0,
                         1,0,0,0,1,0,1,0,1,0,1,0,1,0,1,0,
@@ -294,7 +308,7 @@ struct word1_T WORD_2={{1,0,0,0,1,1,1,0,0,1,0,0,1,1,0,0,
                                                      
                        },16,5};
 
-    struct word1_T WORD_3={{1,1,1,0,0,1,0,0,1,0,1,0,1,1,1,0,
+    struct word1_T WORD_3={{1,1,1,0,0,1,0,0,1,0,1,0,1,1,1,0,  //SAVE
                             1,0,0,0,1,0,1,0,1,0,1,0,1,0,0,0, 
                             1,1,1,0,1,1,1,0,1,0,1,0,1,1,0,0,
                             0,0,1,0,1,0,1,0,1,0,1,0,1,0,0,0,
@@ -302,7 +316,7 @@ struct word1_T WORD_2={{1,0,0,0,1,1,1,0,0,1,0,0,1,1,0,0,
                                                      
                        },16,5};      
     
-    struct word1_T WORD_4={{1,1,1,0,1,0,1,0,1,0,1,1,1,0,
+    struct word1_T WORD_4={{1,1,1,0,1,0,1,0,1,0,1,1,1,0,        //EXIT
                             1,0,0,0,1,0,1,0,1,0,0,1,0,0, 
                             1,1,0,0,0,1,0,0,1,0,0,1,0,0,
                             1,0,0,0,1,0,1,0,1,0,0,1,0,0,
@@ -311,233 +325,37 @@ struct word1_T WORD_2={{1,0,0,0,1,1,1,0,0,1,0,0,1,1,0,0,
                        },14,5};  
     
     struct word1_T WORD_5={{
-                        1,1,1,0,1,1,1,0,0,0,1,0,1,1,1,0,1,0,0,0,1,0,1,0,1,0,1,1,1,  
-                        1,0,0,0,1,0,1,0,1,0,1,0,0,1,0,0,1,0,1,0,1,0,1,0,1,0,1,0,0,   
-                        1,0,0,0,1,0,1,0,1,1,1,0,0,1,0,0,1,0,1,1,1,0,1,0,1,0,1,1,0, 
-                        1,0,0,0,1,0,1,0,1,0,1,0,0,1,0,0,1,0,1,0,1,0,1,0,1,0,1,0,0,
-                        1,1,1,0,1,1,1,0,1,0,0,0,0,1,0,0,1,0,1,0,0,0,1,1,1,0,1,1,1                             
-                       },29,5};
+                        1,1,1,0,1,1,1,0,0,0,1,0,1,1,1,0,1,0,0,0,1,0,1,0,1,0,1,1,1,0,    //CONTINUE
+                        1,0,0,0,1,0,1,0,1,0,1,0,0,1,0,0,1,0,1,0,1,0,1,0,1,0,1,0,0,0,
+                        1,0,0,0,1,0,1,0,1,1,1,0,0,1,0,0,1,0,1,1,1,0,1,0,1,0,1,1,0,0,
+                        1,0,0,0,1,0,1,0,1,0,1,0,0,1,0,0,1,0,1,0,1,0,1,0,1,0,1,0,0,0,
+                        1,1,1,0,1,1,1,0,1,0,0,0,0,1,0,0,1,0,1,0,0,0,1,1,1,0,1,1,1,0                           
+                       },30,5};
     
     struct word1_T WORD_6={{
-                        1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,  
+                        1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,        //SCORE
                         1,0,0,0,1,0,0,0,1,0,1,0,1,0,1,0,1,0,0,0, 
-                        1,1,1,0,1,0,0,0,1,0,1,0,1,1,0,0,1,1,0,0,
-                        0,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,1,0,1,0,
+                        1,1,1,0,1,0,0,0,1,0,1,0,1,1,0,0,1,1,1,0,
+                        0,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,1,0,0,0,
                         1,1,1,0,1,1,1,0,1,1,1,0,1,0,1,0,1,1,1,0                           
                        },20,5};
     
+    struct word1_T WORD_7={{
+                        0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,   // VALOR DEL SCORE
+                        0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                        1,0,1,0,0,1,0,0,1,0,0,1,0,1,0,0,1,0,0,0,0,1,0,1,0,1,0,1,0,1,
+                        0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                        0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0                           
+                       },30,5};    
 
-
-struct letra_T LETRA_A={{
-0,1,0,0,1,0,1,0,1,1,1,0,1,0,1,0,1,0,1,0,        
-                              },4};
-
-struct letra_T LETRA_B={{
-                        1,1,1,0,
-                        1,0,1,0,
-                        1,1,0,0,
-                        1,0,1,0,
-                        1,1,1,0,        
-                              },4};
-
-struct letra_T LETRA_C={{
-                        1,1,1,0,
-                        1,0,0,0,
-                        1,0,0,0,
-                        1,0,0,0,
-                        1,1,1,0,        
-                              },4};
-
-
-struct letra_T LETRA_D={{
-                        0,1,1,0,
-                        1,0,0,1,
-                        1,0,0,1,
-                        1,0,0,1,
-                        1,1,1,0,        
-                              },4};
-
-
-struct letra_T LETRA_E={{
-1,1,1,0,1,0,0,0,1,1,0,0,1,0,0,0,1,1,1,0,        
-                              },4};
-
-struct letra_T LETRA_F={{
-                        1,1,1,0,
-                        1,0,0,0,
-                        1,1,1,0,
-                        1,0,0,0,
-                        1,0,0,0,        
-                              },4};
-
-struct letra_T LETRA_G={{
-1,1,1,0,1,0,0,0,1,1,1,0,1,0,1,0,1,1,1,0,        
-                              },4};
-
-
-struct letra_T LETRA_H={{
-                        1,0,1,0,
-                        1,0,1,0,
-                        1,1,1,0,
-                        1,0,1,0,
-                        1,0,1,0,        
-                              },4};
-
-
-struct letra_T LETRA_I={{
-                        0,1,0,0,
-                        0,0,0,0,
-                        0,1,0,0,
-                        0,1,0,0,
-                        0,1,0,0,        
-                              },4};
-
-struct letra_T LETRA_J={{
-                        1,1,1,0,
-                        0,0,1,0,
-                        0,0,1,0,
-                        1,0,1,0,
-                        1,1,1,0,        
-                              },4};
-
-struct letra_T LETRA_K={{
-                        1,0,1,0,
-                        1,1,0,0,
-                        1,1,0,0,
-                        1,0,1,0,
-                        1,0,1,0,        
-                              },4};
-
-
-struct letra_T LETRA_L={{
-                        1,0,0,0,
-                        1,0,0,0,
-                        1,0,0,0,
-                        1,0,0,0,
-                        1,1,1,0,        
-                              },4};
-
-struct letra_T LETRA_M={{
-1,0,1,0,1,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,        
-                              },4};
-
-
-struct letra_T LETRA_N={{
-                        0,0,1,0,
-                        0,0,1,0,
-                        1,1,1,0,
-                        1,0,1,0,
-                        1,0,0,0,        
-                              },4};
-
-
-
-
-struct letra_T LETRA_O={{
-                        1,1,1,0,
-                        1,0,1,0,
-                        1,0,1,0,
-                        1,0,1,0,
-                        1,1,1,0,        
-                              },4};
-
-
-struct letra_T LETRA_P={{
-                        1,1,1,0,
-                        1,0,1,0,
-                        1,1,1,0,
-                        1,0,0,0,
-                        1,0,0,0,        
-                              },4};
-
-
-struct letra_T LETRA_Q={{
-                        1,1,1,0,
-                        1,0,1,0,
-                        1,0,1,0,
-                        1,1,1,0,
-                        0,1,1,0,        
-                              },4};
-
-
-
-struct letra_T LETRA_R={{
-                        1,1,1,0,
-                        1,0,1,0,
-                        1,1,1,0,
-                        1,0,1,0,
-                        1,0,1,0,        
-                              },4};
-
-
-
-struct letra_T LETRA_S={{
-                        1,1,1,0,
-                        1,0,0,0,
-                        1,1,1,0,
-                        0,0,1,0,
-                        1,1,1,0,        
-                              },4};
-
-
-struct letra_T LETRA_T={{
-                        1,1,1,0,
-                        0,1,0,0,
-                        0,1,0,0,
-                        0,1,0,0,
-                        0,1,0,0,        
-                              },4};
-
-
-struct letra_T LETRA_U={{
-                        1,0,1,0,
-                        1,0,1,0,
-                        1,0,1,0,
-                        1,0,1,0,
-                        1,1,1,0,        
-                              },4};
-
-
-
-struct letra_T LETRA_V={{
-                        1,0,1,0,
-                        1,0,1,0,
-                        1,0,1,0,
-                        1,0,1,0,
-                        0,1,0,0,        
-                              },4};
-
-
-struct letra_T LETRA_W={{
-1,0,1,0,
-1,0,1,0,
-1,0,1,0,
-1,1,1,0,
-1,0,1,0,        
-                              },4};
-
-struct letra_T LETRA_Y={{
-1,0,1,0,
-1,0,1,0,
-1,1,1,0,
-0,1,0,0,
-0,1,0,0,        
-                              },4};
-
-struct letra_T LETRA_Z={{
-1,1,1,0,
-0,0,1,0,
-0,1,0,0,
-1,0,0,0,
-1,1,1,0,        
-                              },4};
-
-
-
-
-void init_blocks(void){
     
+      
+
+
+void init_blocks(void){             //Funcion que inicializa las piezas ,palabras y numeros en sus respectivos arreglos
     
+                        //
+                      //PIEZAS
     
     piezas[0].values=(PIEZA_1.values);
     piezas[0].size=PIEZA_1.size;
@@ -559,6 +377,9 @@ void init_blocks(void){
     
     piezas[6].values=(PIEZA_7.values);
     piezas[6].size=PIEZA_7.size;
+    
+    //
+    //PALABRAS
     
     words[0].values=(WORD_1.values);
     words[0].sizex=WORD_1.sizex;
@@ -584,7 +405,13 @@ void init_blocks(void){
     words[5].sizex=WORD_6.sizex;
     words[5].sizey=WORD_6.sizey;
     
+    words[6].values=(WORD_7.values);
+    words[6].sizex=WORD_7.sizex;
+    words[6].sizey=WORD_7.sizey;
     
+    //
+    //NUMEROS
+       
     nums[0].values=(NUM_1.values);
     nums[0].size=NUM_1.size;
     nums[0].pos.x=3;
@@ -638,15 +465,16 @@ void init_blocks(void){
     
 }
 
-void create_floor(void){
+void create_floor(void){                //FUncion que crea un piso a donde deben frenar las piezas y un pared derecha
+        
     int i;
-    for(i=0;i<NCol;i++){
+    for(i=0;i<NCol;i++){            //PISO
         
         gameboard[VNFil][i]=-1;
         
     }
     
-    for(i=0;i<NFil;i++){
+    for(i=0;i<NFil;i++){        //Prendo la pared en el display
 
         static dcoord_t pos;
         pos.y=i;

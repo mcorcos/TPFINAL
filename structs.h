@@ -13,7 +13,7 @@
 
 #ifndef STRUCTS_H
 
-#define STRUCTS_H
+#define STRUCTS_H //defino las constantes del juego y funciones para utilizar las estrucutras 
 
 #define NCol 12
 #define VNFil 20

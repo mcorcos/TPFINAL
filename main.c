@@ -1,375 +1,114 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
- * File:   main.c
- * Author: manucorcos
- *
- * Created on December 4, 2019, 4:21 PM
- */
-
-
-// el viejo
-
-/*
-#include <stdio.h>
-#include <stdlib.h>
-#include    "structs.h"
-#include    "game.h"
-#include    "disdrv.h"
-#include <unistd.h>
-#include "joydrv.h"
-
-#include <pthread.h>
-
-
-
-#define  ONE_MS    	1000	   // One mseg
-#define  time_delay(x)  (x/100)    // x in ms , minvalue 100mseg
-
-
-
-int gameboard[VNFil+1][NCol];
-
-
-void update_board(void);
-void inicializacion(void);
-int move (void);
-
-
- int piece_set_down=0,finish=0;
-unsigned int TimerTick=2;
-int n,end=1;
-int get_move,conta,timex=150;
-void closepro(void);
-
-void closepro(void){
-    
-    return 0;
-}
-
-
-void* thread_timer()  // Time base Thread
-{	       
-    while(end)
-    {
-        if(conta>=7){
-            timex-=15;
-            conta=0;
-        }
-        usleep(timex*ONE_MS); // 100ms * 
-        if (TimerTick){
-
-            TimerTick--;
-                printf("soy tick--\n\n");
-        }
-    }
-}
-
-void* thread_down(){ // Periodic Task Thread
-
-
-	
-	while (end) {
-            if( piece_set_down || (!TimerTick)){
-                    printf("soy Down\n\n");
-                    if(check_down(n)){
-
-                        printf("bajo");
-
-                        piece_down(n);
-
-                    }
-                    else{
-                        piece_set_down=1;
-                    }
-                
-                    if(piece_set_down){
-
-                    printf("soy newpiece\n\n");
-                    
-                    stayed_blocks(); 
-                    check_board();
-                    clean_struct(n);
-                    
-                    n=gen_pieza();
-                    printf("pieza numero:%d\n",n);
-                    print_pieza(n);
-                    piece_set_down=0;
-                    conta++;
-
-                    }
-                    TimerTick=4;
-            }
-    }
-}
-
-
-void * thread_joy(){ // Periodic Task Thread
-
-
-
-        while (end) 
-        {   
-
-            if(move()==10){
-                end=0;
-                closepro();
-            }
-
-        }
-}
-
-
-
-
-
-
-
-void * thread_move(){ // The APP
-
-
-        while(end){
-            
-           
-            if(TimerTick && check_down(n) && piece_set_down==0){
-                printf("soy move\n\n");                
-                get_move=move();
-                
-                               
-                
-                if( get_move==2 ){
-
-                    int rot;
-                    rot=rotate(n);
-                    
-                    if(rot){
-                        print_pieza(n);
-                    }
-                }
-
-                if( get_move==1 && !check_right(n) ){
-
-
-                    piece_right(n);
-                    printf("soy move derecha \n\n");
-
-                }
-
-                if( get_move==-1 && !check_left(n)){
-
-                    piece_left(n);
-
-
-                }
-                if( get_move==-2 ){
-
-                    down(n);
-                   
-                }    
-                
-                 if(move()==10){
-                    end=0;
-                }
-                
-                if (!check_down(n)){
-                    
-                    usleep((timex-10)*ONE_MS);
-                    
-                }
-
-            }
-
-        }
-
-}
-
-
-void * thread_init(){
-    
-    create_floor();
-    clean_struct(0);
-    clean_struct(1);
-    clean_struct(2);
-    clean_struct(3);
-    clean_struct(4);
-    clean_struct(5);
-    clean_struct(6);
-
-
-    init_blocks();
-    inicializacion();
-
-
-
-    n=gen_pieza();
-    printf("pieza numero:%d\n",n);
-
-    print_pieza(n);
-
-            
-    while(end){
-            update_board();
-            usleep(10000);
-        }
-}
-
-
-
-int main()
-{
-        pthread_t tid1,tid2,tid3,tid4;
-        srand(time(NULL));    
-        
-        pthread_create(&tid4,NULL,thread_init,NULL);
-        usleep(1000000);
-        pthread_create(&tid1,NULL,thread_timer,NULL);
-        usleep(1000000);
-         pthread_create(&tid3,NULL,thread_move,NULL);
-        usleep(1000000);
-        pthread_create(&tid2,NULL,thread_down,NULL);
-        usleep(1000000);
-      
-        pthread_join(tid1,NULL);
-        pthread_join(tid2,NULL);
-        pthread_join(tid3,NULL);     
-        pthread_join(tid4,NULL);
-        
-        return 0;
-        
-}
-*/
-
-//nuevo main
 #include <stdio.h>
 #include <stdlib.h>
 #include "structs.h"
 #include "game.h"
-/*
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_image.h>
-#include <allegro5/allegro_primitives.h> 
-#include <allegro5/allegro_color.h>
-#include <allegro5/allegro5.h>
-#include <allegro5/allegro_acodec.h>
-#include <allegro5/allegro_audio.h>
-*/
+
+#include "rpi.h"
 #include <unistd.h>
 #include <pthread.h>
 
 
 
 #define  ONE_MS    	1000	   // One mseg
-#define  time_delay(x)  (x/100)    // x in ms , minvalue 100mseg
+
 
 #define ENTER '\n'
 
 
 int gameboard[VNFil+1][NCol];
-extern score;
+extern int score;
 
-void update_board(void);
-void inicializacion(void);
-int move (void);
 
-void printboard (void);
 
-typedef struct { 
-    unsigned int x;
-    unsigned int y;
+
     
-}dcoord_t;
+
+int piece_set_down=0,pausa=0;
+
+unsigned int TimerTick=4;
+
+int n,n2,end=1,palabra=0,numero=0,menu=1,set_menu=1,finish=1;
+
+int get_move,conta,timer,lines=0;
 
 
-typedef struct {
-    
-    int *values;
-    int size;
-    dcoord_t pos;    
-    
-}WORD; 
-
-WORD words[2];
-    
-int piece_set_down=0,finish=0,pausa=0;
-unsigned int TimerTick=2,level=1;
-int n,end=1,palabra=0,numero=0,chosen_mode,chosen_diff,menu=1,wait1,wait2;
-int get_move,conta,timex=70;
-void closepro(void);
-void print_stopmenu(void);
+extern int level;
 
 
-void closepro(void){
-    
-    
-}
 
 
-void* thread_timer()  // Time base Thread
+void* thread_timer()  
 {	       
     while(end)
     {
-        usleep((timex-(level-1)*15)*ONE_MS); // 100ms * 
+        usleep((timer-(level-1)*10)*ONE_MS); 
         if (TimerTick){
 
             TimerTick--;
-              //  printf("soy tick--\n\n");
+              
         }
     }
+    return 0;
 }
 
-void* thread_down(){ // Periodic Task Thread
+void* thread_down(){ 
 
 
 	
     while (end) {
 
-        while(!menu && end){            
-            if(piece_set_down || (!TimerTick)){
-                    //rintf("soy Down\n\n");
-                    if(check_down(n)){
+        while(!menu ){            
+            if( !TimerTick ){
+                    
+                   
 
-                       // printf("bajo");
+                    if(piece_set_down){
+
+                        switch(n){
+                            
+                        }
+
+                        stayed_blocks(); 
+                        
+                        check_level(check_board(level));
+                        printf("LEVEL=%d",level);
+                        
+                        clean_struct(n);
+                        
+                        check_fin();
+                        
+                        n=n2;
+                        n2=gen_pieza();
+                        print_n2();
+                        print_pieza(n);
+                        piece_set_down=0;
+                        
+
+                    }
+                     if(check_down(n) ){
+
+                       
 
                         piece_down(n);
 
                     }
                     else{
                         piece_set_down=1;
+                        
                     }
-
-                    if(piece_set_down){
-
-                        //printf("soy newpiece\n\n");
-
-                        stayed_blocks(); 
-                        level=check_level(check_board(level));
-                        switch(level){
-                            case 2:timex=70000;
-                            case 3:timex=50000;
-                        }
-                        clean_struct(n);
-
-                        n=gen_pieza();
-                       // printf("pieza numero:%d\n",n);
-                        print_pieza(n);
-                        piece_set_down=0;
-                        conta++;
-
-                    }
+                     
                     TimerTick=4;
             }
         }    
     }
+    return 0;
 }
 
 
-void * thread_joy(){ // Periodic Task Thread
+void * thread_events(){ // Periodic Task Thread
 
-
+    
 
         while (end){   
             
@@ -380,11 +119,12 @@ void * thread_joy(){ // Periodic Task Thread
                 
                 menu=1;
                 pausa=0;
+                usleep(20000);
                 
                 print_stopmenu();
-                clean_struct(n);
-                update_board();
-                menu=0;
+                
+                
+                
                 
                 
                 
@@ -394,6 +134,9 @@ void * thread_joy(){ // Periodic Task Thread
             }
 
         }
+        
+        closepro();
+        return 0;
 }
 
 
@@ -407,12 +150,12 @@ void * thread_move(){ // The APP
 
         while(end){
             
-            while(!menu && end){
+            while(!menu ){
                 
             
-                if(TimerTick && check_down(n) && piece_set_down==0 ){
+                if(TimerTick && check_down(n)  ){
 
-                    printf("soy move\n\n");                
+                                   
                     get_move=move();
 
 
@@ -425,14 +168,14 @@ void * thread_move(){ // The APP
                         if(rot){
                             print_pieza(n);
                         }
-                        usleep(100000);
+                       
                     }
 
                     if( get_move==1 && !check_right(n) ){
 
 
                         piece_right(n);
-                        printf("soy move derecha \n\n");
+                        
 
                     }
 
@@ -447,7 +190,10 @@ void * thread_move(){ // The APP
                         down(n);
                         
                     }    
-
+                    if(get_move==9){
+                        pausa=1;
+                        menu=1;
+                    }
                    
                     if(get_move==10){
                         pausa=1;
@@ -456,13 +202,14 @@ void * thread_move(){ // The APP
                    
                     if (!check_down(n)){
 
-                        usleep((timex-10)*ONE_MS);
+                        usleep((timer-10)*ONE_MS);
 
                     }
 
                 }
             }
         }
+        return 0;
 
 }
 
@@ -470,16 +217,26 @@ void * thread_move(){ // The APP
 void * thread_menu(){ // The APP
 
 
+    while(finish){
         
+        while(set_menu){
             
-            while(menu){
-                print_menu();
-                menu=0;
-            }
+        while(menu){
             
+            print_menu();
+            print_screen(n2);
+            menu=0;
+            set_menu=0;
+            usleep(20000);
+        }
+      
+        }
+        
+    }
+    
             
         
-       
+    return 0;
         
 
 }
@@ -496,33 +253,34 @@ void * thread_init(){
     clean_struct(6);
 
     
-    clean_word(0);
-    clean_word(1);
-    clean_word(2);
-    clean_word(3);
-    clean_word(4);
-    clean_word(5);
-    clean_word(6);
+    clean_words();
+    
     
     init_blocks();
     inicializacion();
-
+    
 
 
     n=gen_pieza();
+    n2=gen_pieza();
+    print_n2();
     printf("pieza numero:%d\n",n);
 
     print_pieza(n);
 
             
     while(end){
-        while(!menu && end){
+       
+       
+        while(!menu ){
             
-        
+            
             update_board();
             usleep(1000);
+            
         }
         }
+    return 0;
 }
 
 
@@ -533,7 +291,7 @@ int main(void)
         srand(time(NULL));    
         
         pthread_create(&tid4,NULL,thread_init,NULL);
-        usleep(1000000);
+        usleep(2000000);
        pthread_create(&tid5,NULL,thread_menu,NULL);
         usleep(1000000);        
         pthread_create(&tid1,NULL,thread_timer,NULL);
@@ -542,7 +300,7 @@ int main(void)
         usleep(1000000);
         pthread_create(&tid2,NULL,thread_down,NULL);
         usleep(1000000);
-          pthread_create(&tid6,NULL,thread_joy,NULL);
+          pthread_create(&tid6,NULL,thread_events,NULL);
         usleep(1000000);
       
         pthread_join(tid1,NULL);
@@ -553,7 +311,294 @@ int main(void)
         pthread_join(tid6,NULL);
         return 0;
         
+}*/
+#include <stdio.h>
+#include <stdlib.h>
+#include "structs.h"
+#include "game.h"
+
+
+
+
+
+#include "rpi.h"
+
+
+#include <unistd.h>
+#include <pthread.h>
+
+
+
+#define  ONE_MS    	1000	   // One mseg
+
+#define ENTER '\n'
+
+
+
+
+int gameboard[VNFil+1][NCol];
+
+
+    
+int piece_set_down=0,finish=1;
+unsigned int TimerTick=4;
+int n,n2,end=1,palabra=0,numero=0,menu=1,set_menu=1,block=1;
+int get_move,conta,timer,lines=0;
+int pausa=0;
+unsigned int P0,P1,P2,P3,P4,P5,P6;
+
+
+
+extern int level,score;
+
+void* thread_timer()  // Time base Thread
+{	       
+    while(end)
+    {
+        usleep((timer-(level-1)*10)*ONE_MS);// timer definido con dificultad inicial
+        if (TimerTick){                     // contador de segundos
+                                            //TimerTick clock del juego
+            TimerTick--;
+        }
+    }
+    return 0;
 }
+
+void* thread_down(){ // Periodic Task Thread
+
+
+	
+    while (end) {
+
+        while(!menu){ 
+            
+            if(!TimerTick){ //si TimerTick es 0
+
+
+                    if(check_down(n)){ // analiza si puede bajar
+
+
+                        piece_down(n);  //si es positivo baja la pieza
+                    }
+                    
+                    else{               // si es negativo la deja donde esta
+                        
+                        switch(n){
+                                case 0: P0++;
+                                break;
+                                case 1: P1++;
+                                break;
+                                case 2: P2++;
+                                break;
+                                case 3: P3++;
+                                break;
+                                case 4: P4++;
+                                break;
+                                case 5: P5++;
+                                break;
+                                case 6: P6++;
+                                break;                            
+                            }
+                     
+                            stayed_blocks(); // todas las piezas que cayeron las deja estaticas en el gameboard
+                            
+                            check_level(check_board(level)); // se fija si se aumenta el nivel o si se completaron filas
+                            clean_struct(n); // vuelve a poner las coordenadas de la estructura en 0
+
+                            n=n2; 
+                            
+                            n2=gen_pieza(); //utilizo un generador de piezas aleatorio
+                            print_screen(n2);  
+
+                            check_fin(n); // me fijo si el juego termino
+                            
+                            usleep(20000);
+
+                            print_pieza(n);// imprimo la pieza correspondiente en el gameboard
+                                             
+                    }               
+                    block=1;             
+                    TimerTick=4;
+            }
+        }  
+    }
+    return 0;
+}
+
+
+void * thread_events(){ // Periodic Task Thread
+        
+
+    while (end){  //recibe los eventos de teclado y del switch para el menu de pausa
+
+        if(pausa){
+
+
+            menu=1; // pongo menu en 1 asi no uso mas la logica del juego
+            pausa=0;
+            usleep(100000);
+            print_stopmenu(); // imprimo el menu de pausa
+        }
+    }
+    closepro();       
+    return 0;
+}
+
+
+
+
+
+
+
+void * thread_move(){ // The APP
+
+
+        while(end){
+        
+            while(!menu){
+                
+            
+                if(TimerTick && block){
+
+                                    
+                    get_move=move(); // recibo del teclado que tecla se apreto y la guardo en get_move
+                            
+                    if( get_move==2 ){ // si se apreto la tecla para arriba, se fija si puede rotar
+
+                        int rot;
+                        rot=rotate(n);
+
+                        if(rot){
+                            print_pieza(n);
+                        }
+                    }
+
+                    if( get_move==1 && !check_right(n) ){ // si se apreto la tecla para la derecha , me fijo si el movimiento es valido
+
+                        piece_right(n);
+                  
+
+                    }
+
+                    if( get_move==-1 && !check_left(n)){// si se apreto la tecla para la izquierda, me fijo si el movimiento es valido
+
+                        piece_left(n);
+
+                    }
+
+                    if( get_move==-2 ){ // si se apreto la tecla para abajo, llama a la funcion down que acelera el movimiento hacia abajo
+
+                        down(n);
+                        
+                    }
+                    
+                    if(get_move==9){ // si se apreto el escape o la cruz de la ventana , salta el menu de pausa
+                        pausa=1;
+                        menu=1;
+                    }
+                    if(get_move==10){
+                        pausa=1;
+                        menu=1;
+                    } 
+                    
+                    if (!check_down(n)){ // pongo un timer para movepara alentizar el movimiento lateral
+
+                        usleep((timer-10)*ONE_MS);
+
+                    }
+
+                }
+            }
+        }
+        return 0;
+}
+
+
+void * thread_menu(){ 
+    while(finish){
+        
+        while(set_menu){ // cada vez que el juego termine , se muestra el menu principal
+            
+            while(menu){
+                    print_menu(); // muestra el menu principal
+                    print_screen(n2); // muestra el estado de lineas , stadisticas de piezas y le next piece
+                    menu=0;
+                    set_menu=0;
+                    usleep(20000);
+                }
+        }  
+    
+    }
+    return 0;
+}
+
+
+void * thread_init(){ // thread encargado de la inicializacion y de actualizar el board cada poco tiempo
+    
+    create_floor();
+    clean_struct(0);
+    clean_struct(1);
+    clean_struct(2);
+    clean_struct(3);
+    clean_struct(4);
+    clean_struct(5);
+    clean_struct(6);
+
+    
+    clean_words(); 
+
+    init_blocks();
+    inicializacion();
+
+
+
+    n=gen_pieza();
+    n2=gen_pieza();
+    print_pieza(n);
+
+            
+    while(end){
+        
+        while(!menu){   
+            update_board();
+            usleep(1000);
+        }
+    }
+    return 0;
+}
+    
+
+
+
+int main(){
+    
+        pthread_t tid1,tid2,tid3,tid4,tid5,tid6;
+        srand(time(NULL));    
+        
+        pthread_create(&tid4,NULL,thread_init,NULL); // inicializo todos los threads con delay entre los mismos
+        usleep(2000000);
+        pthread_create(&tid5,NULL,thread_menu,NULL); // este delay esta dado ya que quizas unthread quiere actuar sobre algo que no esta iniializado aun
+        usleep(1000000);        
+        pthread_create(&tid1,NULL,thread_timer,NULL);
+        usleep(1000000);
+        pthread_create(&tid3,NULL,thread_move,NULL);
+        usleep(1000000);
+        pthread_create(&tid2,NULL,thread_down,NULL);
+        usleep(1000000);
+        pthread_create(&tid6,NULL,thread_events,NULL);
+        usleep(1000000);
+        
+      
+        pthread_join(tid1,NULL); // espero a los threads a que terminen
+        pthread_join(tid2,NULL);
+        pthread_join(tid3,NULL);  
+        pthread_join(tid4,NULL);
+        pthread_join(tid5,NULL);
+        pthread_join(tid6,NULL);
+        return 0;
+        
+}
+
 
    
  

@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>disdrv.h</itemPath>
       <itemPath>game.h</itemPath>
+      <itemPath>rpi.h</itemPath>
       <itemPath>structs.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -84,6 +85,8 @@
       </item>
       <item path="rpi.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="rpi.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="structs.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="structs.h" ex="false" tool="0" flavor2="0">
@@ -130,6 +133,8 @@
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="rpi.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="rpi.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="structs.c" ex="false" tool="0" flavor2="0">
       </item>
